@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { authenticatedState } from "../recoil/store";
+import { authenticatedState, userState } from "../recoil";
 import {
   GoogleLogin,
   googleLogout,
   GoogleOAuthProvider,
 } from "@react-oauth/google";
+import { Buffer } from "buffer";
 
 const responseGoogle = (response) => {
   console.log("response", response);
@@ -20,6 +21,7 @@ const Login = ({ to }) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const setAuthenticated = useSetRecoilState(authenticatedState);
+  const setUserInfo = useSetRecoilState(userState);
   const onChangeIdInput = (e) => {
     setUserId(e.target.value);
   };
@@ -40,6 +42,16 @@ const Login = ({ to }) => {
       });
 
       if (data.headers.authorization) {
+        const jwtToken = data.headers.authorization;
+        const payload = JSON.parse(
+          Buffer.from(jwtToken.split(" ")[1].split(".")[1], "base64").toString(
+            "ascii"
+          )
+        );
+        console.log(payload);
+        console.log(payload.id);
+        setUserInfo({ id: payload.id, username: payload.username });
+
         setAuthenticated(true);
         localStorage.setItem("login-token", data.headers.authorization);
         if (location.pathname === "/login") return navigate("/");

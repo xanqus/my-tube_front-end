@@ -6,8 +6,8 @@ import DirectMessage from "./DirectMessage";
 const WorkSpace = () => {
   return (
     <Routes>
-      <Route path="/channel" element={<Channel />}></Route>
-      <Route path="/dm" element={<DirectMessage />}></Route>
+      <Route path="/channel" element={<Channel />} />
+      <Route path="/dm" element={<DirectMessage />} />
     </Routes>
   );
 };

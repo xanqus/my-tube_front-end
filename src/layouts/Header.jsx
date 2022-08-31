@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { authenticatedState } from "../recoil/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authenticatedState, userState } from "../recoil";
 
 const Header = () => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
+  const userInfo = useRecoilValue(userState);
 
   console.log(authenticated);
   return (
@@ -43,8 +44,8 @@ const Header = () => {
                 className="input input-bordered border-gray-400"
               />
             </div>
-            <Link to="#">
-              <i className="flex items-center fi fi-rr-video-plus text-3xl bg-red-500 mr-2"></i>
+            <Link to="/studio/3">
+              <i className="flex items-center fi fi-rr-video-plus text-3xl mr-2"></i>
             </Link>
 
             {authenticated ? (
@@ -59,10 +60,7 @@ const Header = () => {
                   className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </a>
+                    <Link to={`/users/${userInfo.id}`}>Profile</Link>
                   </li>
                   <li>
                     <a>Settings</a>

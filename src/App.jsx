@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import AuthRoutes from "./auth/AuthRoutes";
 import Home from "./routes/home/Home";
+import JwtAuthenticatedUser from "./routes/JwtAuthenticatedUser";
 import Login from "./routes/Login";
+import UserDetail from "./routes/users/Users";
 import WorkSpace from "./routes/WorkSpace";
+import Users from "./routes/users/Users";
 const About = lazy(() => import("./routes/About"));
-const Users = lazy(() => import("./routes/Users"));
 
 const App = () => {
   return (
@@ -21,7 +23,11 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route element={<AuthRoutes />}>
             <Route path="/workspace/*" element={<WorkSpace />} />
-            <Route path="/users" element={<Users />} />
+            <Route
+              path="/jwtAuthenticatedUser"
+              element={<JwtAuthenticatedUser />}
+            />
+            <Route path="/users/*" element={<Users />} />
           </Route>
         </Routes>
       </Suspense>
