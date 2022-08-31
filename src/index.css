@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @import url("https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css");
-
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
 ul,
 li {
   list-style: none;

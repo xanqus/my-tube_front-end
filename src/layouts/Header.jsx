@@ -43,6 +43,10 @@ const Header = () => {
                 className="input input-bordered border-gray-400"
               />
             </div>
+            <Link to="#">
+              <i className="flex items-center fi fi-rr-video-plus text-3xl bg-red-500 mr-2"></i>
+            </Link>
+
             {authenticated ? (
               <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
