@@ -1,9 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { authenticatedState } from "../recoil/store";
 
 const Header = () => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
+
+  console.log(authenticated);
   return (
     <header>
       <div className="h-14 fixed top-0 left-0 w-full">
@@ -40,30 +43,45 @@ const Header = () => {
                 className="input input-bordered border-gray-400"
               />
             </div>
-            <div className="dropdown dropdown-end">
-              <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src="https://placeimg.com/80/80/people" />
+            {authenticated ? (
+              <div className="dropdown dropdown-end">
+                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img src="https://placeimg.com/80/80/people" />
+                  </div>
+                </label>
+                <ul
+                  tabIndex="0"
+                  className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <div
+                      onClick={() => {
+                        setAuthenticated(false);
+                      }}
+                    >
+                      Logout
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="flex">
+                <div className="mr-2">회원가입</div>
+                <div className="mr-2">
+                  <Link to="/login">로그인</Link>
                 </div>
-              </label>
-              <ul
-                tabIndex="0"
-                className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
-                <li>
-                  <a>Settings</a>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ const Home = () => {
   return (
     <Layout>
       <div>home</div>
+      <div className="h-screen"></div>
     </Layout>
   );
 };
