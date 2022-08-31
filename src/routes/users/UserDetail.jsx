@@ -8,7 +8,7 @@ const UserDetail = () => {
 
   return (
     <Layout>
-      <div>userInfo id: {userInfo ? userInfo.id : "로그인을 해주세요"}</div>
+      <div>userInfo id: {userInfo.id}</div>
     </Layout>
   );
 };

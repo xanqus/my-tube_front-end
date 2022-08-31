@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authenticatedState, userState } from "../recoil";
 
 const Header = () => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
   const userInfo = useRecoilValue(userState);
+  const navigate = useNavigate();
 
   console.log(authenticated);
   return (
@@ -31,10 +32,15 @@ const Header = () => {
                 ></path>
               </svg>
             </label>
-            <a className="btn btn-ghost normal-case text-xl hover:bg-transparent">
+            <div
+              className="btn btn-ghost normal-case text-xl hover:bg-transparent"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <i className="fi fi-brands-youtube text-red-500 mt-2"></i>
               <div className="ml-2">MyTube</div>
-            </a>
+            </div>
           </div>
           <div className="flex-1 justify-end gap-2 ml-auto">
             <div className="form-control mx-auto w-1/3">
@@ -69,6 +75,7 @@ const Header = () => {
                     <div
                       onClick={() => {
                         setAuthenticated(false);
+                        navigate("/");
                       }}
                     >
                       Logout
