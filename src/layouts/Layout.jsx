@@ -21,11 +21,11 @@ const Layout = ({ children }) => {
               <li>
                 <Link to="#">Sidebar Item 2</Link>
               </li>
+              <Footer />
             </ul>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

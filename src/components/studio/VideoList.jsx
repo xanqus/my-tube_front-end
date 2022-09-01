@@ -3,8 +3,8 @@ import VideoListItem from "./VideoListItem";
 
 const VideoList = () => {
   return (
-    <div className="overflow-x-auto">
-      <table className="table w-full">
+    <div className="overflow-x">
+      <table className="table w-full z-0">
         <thead>
           <tr>
             <th className="bg-white border-y box-border">
