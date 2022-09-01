@@ -11,7 +11,7 @@ const Header = () => {
   console.log(authenticated);
   return (
     <header>
-      <div className="h-14 fixed top-0 left-0 w-full">
+      <div className="h-14 fixed top-0 left-0 w-full shadow-md">
         <div className="navbar min-h-0 h-14 bg-base-100">
           <div className="flex">
             <label

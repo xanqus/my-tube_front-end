@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
           <div className="drawer-content"></div>
           <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>
-            <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+            <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content z-50">
               <li>
                 <Link to="/test">Sidebar Item 1</Link>
               </li>

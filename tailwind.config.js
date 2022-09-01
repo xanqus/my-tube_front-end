@@ -12,6 +12,9 @@ module.exports = {
         112: "28rem",
         128: "32rem",
       },
+      width: {
+        144: "36rem",
+      },
     },
   },
   plugins: [require("daisyui"), require("flowbite/plugin")],
