@@ -8,7 +8,6 @@ const Header = () => {
   const userInfo = useRecoilValue(userState);
   const navigate = useNavigate();
 
-  console.log(authenticated);
   return (
     <header>
       <div className="h-14 fixed top-0 left-0 w-full shadow-md">
@@ -50,7 +49,7 @@ const Header = () => {
                 className="input input-bordered border-gray-400"
               />
             </div>
-            <Link to="/studio/3">
+            <Link to={`/studio/${userInfo.id}`}>
               <i className="flex items-center fi fi-rr-video-plus text-3xl mr-2"></i>
             </Link>
 
