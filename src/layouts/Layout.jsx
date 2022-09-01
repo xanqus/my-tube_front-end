@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main className="mt-14 bg-red-500">{children}</main>
+      <main className="mt-14">{children}</main>
       <div className="h-screen fixed top-14">
         <div className="drawer">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
                 <Link to="/test">Sidebar Item 1</Link>
               </li>
               <li>
-                <a>Sidebar Item 2</a>
+                <Link to="#">Sidebar Item 2</Link>
               </li>
             </ul>
           </div>

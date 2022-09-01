@@ -5,7 +5,7 @@ import Layout from "../../layouts/Layout";
 const Studio = () => {
   return (
     <Layout>
-      <div>studio</div>
+      <div>채널 콘텐츠</div>
     </Layout>
   );
 };

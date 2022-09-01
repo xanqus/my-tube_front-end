@@ -58,7 +58,10 @@ const Header = () => {
               <div className="dropdown dropdown-end">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
-                    <img src="https://placeimg.com/80/80/people" />
+                    <img
+                      src="https://placeimg.com/80/80/people"
+                      alt="profile"
+                    />
                   </div>
                 </label>
                 <ul
@@ -69,7 +72,7 @@ const Header = () => {
                     <Link to={`/users/${userInfo.id}`}>Profile</Link>
                   </li>
                   <li>
-                    <a>Settings</a>
+                    <div>Settings</div>
                   </li>
                   <li>
                     <div
