@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil";
 
 const ModalBox = ({ active, setActive }) => {
-  //
+  const userInfo = useRecoilValue(userState);
   return (
     <>
       <input
@@ -48,10 +50,10 @@ const ModalBox = ({ active, setActive }) => {
                 e.preventDefault();
                 const formData = new FormData();
 
-                let files = [];
-                files = Object.keys(e.target.files).map((key) =>
+                Object.keys(e.target.files).map((key) =>
                   formData.append("files", e.target.files[key])
                 );
+                formData.append("id", JSON.stringify(userInfo.id));
 
                 await axios({
                   headers: { "Content-Type": "multipart/form-data" },

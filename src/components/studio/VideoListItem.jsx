@@ -19,7 +19,7 @@ const VideoListItem = () => {
               alt="thumnail"
             />
           </div>
-          <div className="flex flex-col ml-6 hover:bg-red-500">
+          <div className="flex flex-col ml-6">
             <div> 22 08 30 22강 할 일 추가 백엔드에 추가</div>
             <div>설명추가</div>
           </div>
