@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React from "react";
 
 const ModalBox = ({ active, setActive }) => {
   //
@@ -38,7 +39,30 @@ const ModalBox = ({ active, setActive }) => {
             </label>
           </div>
           <div className="flex flex-col items-center h-auto flex-grow">
-            <input id="video-upload" type="file" w-24 hidden />
+            <input
+              id="video-upload"
+              type="file"
+              hidden
+              multiple
+              onChange={async (e) => {
+                e.preventDefault();
+                const formData = new FormData();
+
+                let files = [];
+                files = Object.keys(e.target.files).map((key) =>
+                  formData.append("files", e.target.files[key])
+                );
+
+                await axios({
+                  headers: { "Content-Type": "multipart/form-data" },
+                  url: "http://localhost:8287/api/v1/videos",
+                  method: "POST",
+                  data: formData,
+                });
+                e.target.value = "";
+                setActive(false);
+              }}
+            />
             <div>
               <div>동영상 파일을 드래그 앤 드롭하여 업로드</div>
               <div>동영상을 게시하기 전에는 비공개로 설정됩니다.</div>
