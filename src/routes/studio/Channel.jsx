@@ -11,7 +11,7 @@ const Channel = () => {
     <Layout>
       <div className="flex">
         <div className="w-60 flex-shrink-0 border border-r-0 border-t-0">
-          hi
+          side menu
         </div>
         <div className="flex flex-col flex-grow z-0 border border-b-0">
           <ModalButton setActive={setActive}>

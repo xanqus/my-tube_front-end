@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { userState } from "../../../recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userState, videoState } from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
 
 import VideoListItem from "./VideoListItem";
 
 const VideoList = () => {
   const userInfo = useRecoilValue(userState);
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useRecoilState(videoState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {

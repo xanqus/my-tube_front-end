@@ -1,12 +1,37 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { userState } from "../../recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { userState, videoState } from "../../recoil";
 import { BACKEND_URL } from "../../utils";
 
 const ModalBox = ({ active, setActive }) => {
   const [error, setError] = useState(null);
   const userInfo = useRecoilValue(userState);
+  const setVideoState = useSetRecoilState(videoState);
+  const uploadVideos = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+
+      Object.keys(e.target.files).map((key) =>
+        formData.append("files", e.target.files[key])
+      );
+
+      const data = await axios({
+        headers: { "Content-Type": "multipart/form-data" },
+        url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+        method: "POST",
+        data: formData,
+      });
+      e.target.value = "";
+      setVideoState(data.data);
+      setActive(false);
+    } catch (e) {
+      setError(e);
+      alert(e.message);
+      console.log(e);
+    }
+  };
   if (error) {
     return <div>{error.message}</div>;
   }
@@ -51,29 +76,7 @@ const ModalBox = ({ active, setActive }) => {
               type="file"
               hidden
               multiple
-              onChange={async (e) => {
-                e.preventDefault();
-                try {
-                  const formData = new FormData();
-
-                  Object.keys(e.target.files).map((key) =>
-                    formData.append("files", e.target.files[key])
-                  );
-
-                  await axios({
-                    headers: { "Content-Type": "multipart/form-data" },
-                    url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
-                    method: "POST",
-                    data: formData,
-                  });
-                  e.target.value = "";
-                  setActive(false);
-                } catch (e) {
-                  setError(e);
-                  alert(e.message);
-                  console.log(e);
-                }
-              }}
+              onChange={uploadVideos}
             />
             <div>
               <div>동영상 파일을 드래그 앤 드롭하여 업로드</div>
