@@ -13,19 +13,18 @@ const VideoList = () => {
   const [error, setError] = useState(null);
   useEffect(() => {
     const getData = async () => {
-      const data = await axios({
-        url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
-      });
+      try {
+        const data = await axios({
+          url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+        });
 
-      setVideos(data.data);
-      setLoading(false);
+        setVideos(data.data);
+        setLoading(false);
+      } catch (e) {
+        setError(e);
+      }
     };
-    try {
-      getData();
-    } catch (e) {
-      setError(e);
-      console.log(e);
-    }
+    getData();
   }, []);
 
   if (error) {
