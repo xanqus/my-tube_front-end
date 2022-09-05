@@ -1,7 +1,23 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil";
+import { BACKEND_URL } from "../../../utils";
+
 import VideoListItem from "./VideoListItem";
 
 const VideoList = () => {
+  const userInfo = useRecoilValue(userState);
+  useEffect(() => {
+    console.log("API 호출");
+    const getData = async () => {
+      const data = await axios({
+        url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+      });
+      console.log(data);
+    };
+    getData();
+  }, []);
   return (
     <div className="overflow-x">
       <table className="table w-full z-0">
