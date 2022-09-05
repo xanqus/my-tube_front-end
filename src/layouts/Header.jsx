@@ -49,7 +49,7 @@ const Header = () => {
                 className="input input-bordered border-gray-400"
               />
             </div>
-            <Link to={`/studio/${userInfo.id}`}>
+            <Link to={`/studio/channel/${userInfo.id}`}>
               <i className="flex items-center fi fi-rr-video-plus text-3xl mr-2"></i>
             </Link>
 
