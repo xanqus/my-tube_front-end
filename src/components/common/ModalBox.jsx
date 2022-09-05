@@ -64,7 +64,7 @@ const ModalBox = ({ active, setActive }) => {
 
                   await axios({
                     headers: { "Content-Type": "multipart/form-data" },
-                    url: `${BACKEND_URL}/api/v1/videos/`,
+                    url: `${BACKEND_URL}/api/v1/video/${userInfo.id}`,
                     method: "POST",
                     data: formData,
                   });
