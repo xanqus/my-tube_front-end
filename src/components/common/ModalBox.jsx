@@ -1,10 +1,15 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil";
+import { BACKEND_URL } from "../../utils";
 
 const ModalBox = ({ active, setActive }) => {
+  const [error, setError] = useState(null);
   const userInfo = useRecoilValue(userState);
+  if (error) {
+    return <div>{error.message}</div>;
+  }
   return (
     <>
       <input
@@ -48,21 +53,28 @@ const ModalBox = ({ active, setActive }) => {
               multiple
               onChange={async (e) => {
                 e.preventDefault();
-                const formData = new FormData();
+                try {
+                  const formData = new FormData();
 
-                Object.keys(e.target.files).map((key) =>
-                  formData.append("files", e.target.files[key])
-                );
-                formData.append("id", JSON.stringify(userInfo.id));
+                  Object.keys(e.target.files).map((key) =>
+                    formData.append("files", e.target.files[key])
+                  );
+                  formData.append("id", userInfo.id);
+                  formData.append("username", "user");
 
-                await axios({
-                  headers: { "Content-Type": "multipart/form-data" },
-                  url: "http://localhost:8287/api/v1/videos",
-                  method: "POST",
-                  data: formData,
-                });
-                e.target.value = "";
-                setActive(false);
+                  await axios({
+                    headers: { "Content-Type": "multipart/form-data" },
+                    url: `${BACKEND_URL}/api/v1/videos/`,
+                    method: "POST",
+                    data: formData,
+                  });
+                  e.target.value = "";
+                  setActive(false);
+                } catch (e) {
+                  setError(e);
+                  alert(e.message);
+                  console.log(e);
+                }
               }}
             />
             <div>

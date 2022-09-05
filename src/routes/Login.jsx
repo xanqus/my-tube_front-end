@@ -9,6 +9,7 @@ import {
   GoogleOAuthProvider,
 } from "@react-oauth/google";
 import { Buffer } from "buffer";
+import { BACKEND_URL } from "../utils";
 
 const responseGoogle = (response) => {
   console.log("response", response);
@@ -34,7 +35,7 @@ const Login = ({ to }) => {
     try {
       const data = await axios({
         method: "post",
-        url: "http://localhost:8287/api/v1/login",
+        url: `${BACKEND_URL}/api/v1/login`,
         data: {
           username: userId,
           password: userPassword,
