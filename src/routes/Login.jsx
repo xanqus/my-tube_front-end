@@ -19,15 +19,15 @@ const Login = ({ to }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [userId, setUserId] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const setAuthenticated = useSetRecoilState(authenticatedState);
   const setUserInfo = useSetRecoilState(userState);
   const onChangeIdInput = (e) => {
-    setUserId(e.target.value);
+    setEmail(e.target.value);
   };
   const onChnagePasswordInput = (e) => {
-    setUserPassword(e.target.value);
+    setPassword(e.target.value);
   };
 
   const doLogin = async (e) => {
@@ -37,8 +37,8 @@ const Login = ({ to }) => {
         method: "post",
         url: `${BACKEND_URL}/api/v1/login`,
         data: {
-          username: userId,
-          password: userPassword,
+          email,
+          password,
         },
       });
 
@@ -70,13 +70,13 @@ const Login = ({ to }) => {
           <input
             type="text"
             placeholder="ID"
-            value={userId}
+            value={email}
             onChange={onChangeIdInput}
           />
           <input
             type="text"
             placeholder="PASSWORD"
-            value={userPassword}
+            value={password}
             onChange={onChnagePasswordInput}
           />
           <button type="submit">로그인</button>
