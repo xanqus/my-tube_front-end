@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
@@ -8,16 +8,34 @@ import VideoListItem from "./VideoListItem";
 
 const VideoList = () => {
   const userInfo = useRecoilValue(userState);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   useEffect(() => {
-    console.log("API 호출");
     const getData = async () => {
       const data = await axios({
         url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
       });
-      console.log(data);
+
+      setVideos(data.data);
+      setLoading(false);
     };
-    getData();
+    try {
+      getData();
+    } catch (e) {
+      setError(e);
+      console.log(e);
+    }
   }, []);
+
+  if (error) {
+    console.log("error", error);
+    return <>{error.message}</>;
+  }
+  if (loading) {
+    return <>loading...</>;
+  }
+
   return (
     <div className="overflow-x">
       <table className="table w-full z-0">
@@ -41,8 +59,9 @@ const VideoList = () => {
           </tr>
         </thead>
         <tbody>
-          <VideoListItem />
-          <VideoListItem />
+          {videos.map((video, index) => (
+            <VideoListItem key={index} video={video} />
+          ))}
         </tbody>
       </table>
     </div>
