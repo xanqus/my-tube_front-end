@@ -5,7 +5,7 @@ import VideoEdit from "../studio/channel/VideoEdit";
 
 import VideoInput from "../studio/channel/VideoInput";
 
-const ModalBox = () => {
+const ModalBox = ({ selectedVideo }) => {
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
   return (
@@ -19,9 +19,9 @@ const ModalBox = () => {
       />
       <div htmlFor="my-modal-4" className="modal" onClick={() => {}}>
         {active && isEditing ? (
-          <VideoEdit setActive={setActive} />
+          <VideoEdit selectedVideo={selectedVideo} />
         ) : !isEditing ? (
-          <VideoInput setActive={setActive} />
+          <VideoInput />
         ) : (
           <></>
         )}

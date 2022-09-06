@@ -11,6 +11,7 @@ import { isEditingState, modalActiveState } from "../../recoil";
 const Channel = () => {
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
+  const [selectedVideo, setSelectedVideo] = useState({});
   const navigate = useNavigate();
   console.log(navigate);
   useEffect(() => {
@@ -44,10 +45,10 @@ const Channel = () => {
             </div>
           </ModalButton>
 
-          <VideoList setActive={setActive} setIsEditing={setIsEditing} />
+          <VideoList setSelectedVideo={setSelectedVideo} />
         </div>
       </div>
-      <ModalBox />
+      <ModalBox selectedVideo={selectedVideo} />
     </Layout>
   );
 };

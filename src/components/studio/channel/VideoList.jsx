@@ -6,7 +6,7 @@ import { BACKEND_URL } from "../../../utils";
 
 import VideoListItem from "./VideoListItem";
 
-const VideoList = ({ setActive, setIsEditing }) => {
+const VideoList = ({ setSelectedVideo }) => {
   const userInfo = useRecoilValue(userState);
   const [videos, setVideos] = useRecoilState(videoState);
   const [loading, setLoading] = useState(true);
@@ -62,8 +62,7 @@ const VideoList = ({ setActive, setIsEditing }) => {
             <VideoListItem
               key={index}
               video={video}
-              setActive={setActive}
-              setIsEditing={setIsEditing}
+              setSelectedVideo={setSelectedVideo}
             />
           ))}
         </tbody>

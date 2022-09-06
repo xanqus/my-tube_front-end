@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { isEditingState, modalActiveState } from "../../../recoil";
 import { formatDate } from "../../../utils";
 
-const VideoListItem = ({ video }) => {
+const VideoListItem = ({ video, setSelectedVideo }) => {
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
   return (
@@ -29,6 +29,7 @@ const VideoListItem = ({ video }) => {
               <div
                 className="cursor-pointer hover:underline"
                 onClick={() => {
+                  setSelectedVideo(video);
                   setActive(true);
                   setIsEditing(true);
                 }}
