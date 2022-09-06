@@ -1,6 +1,6 @@
 import React from "react";
 
-const ModalButton = ({ children, setActive }) => {
+const ModalButton = ({ children }) => {
   return (
     <>
       <label

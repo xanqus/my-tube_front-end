@@ -1,9 +1,13 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { isEditingState, modalActiveState } from "../../recoil";
 import VideoEdit from "../studio/channel/VideoEdit";
 
 import VideoInput from "../studio/channel/VideoInput";
 
-const ModalBox = ({ active, setActive, isEditing, setIsEditing }) => {
+const ModalBox = () => {
+  const [active, setActive] = useRecoilState(modalActiveState);
+  const [isEditing, setIsEditing] = useRecoilState(isEditingState);
   return (
     <>
       <input

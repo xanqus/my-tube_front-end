@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import ModalBox from "../../components/common/ModalBox";
 import ModalButton from "../../components/common/ModalButton";
 import VideoList from "../../components/studio/channel/VideoList";
 import Layout from "../../layouts/Layout";
+import { isEditingState, modalActiveState } from "../../recoil";
 
 const Channel = () => {
-  const [active, setActive] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
+  const [active, setActive] = useRecoilState(modalActiveState);
+  const [isEditing, setIsEditing] = useRecoilState(isEditingState);
+  const navigate = useNavigate();
+  console.log(navigate);
+  useEffect(() => {
+    document.title = "채널 콘텐츠 - MyTube Studio";
+  }, []);
   return (
     <Layout>
       <div className="flex pointer-events-auto">
@@ -16,7 +24,7 @@ const Channel = () => {
           <div className="btn z-auto">click</div>
         </div>
         <div className="flex flex-col flex-grow z-0 border border-b-0">
-          <ModalButton setActive={setActive}>
+          <ModalButton>
             <div
               onClick={() => {
                 console.log("active", active);
@@ -39,12 +47,7 @@ const Channel = () => {
           <VideoList setActive={setActive} setIsEditing={setIsEditing} />
         </div>
       </div>
-      <ModalBox
-        active={active}
-        setActive={setActive}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-      />
+      <ModalBox />
     </Layout>
   );
 };

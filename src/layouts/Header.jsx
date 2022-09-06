@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { authenticatedState, userState } from "../recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { authenticatedState, modalActiveState, userState } from "../recoil";
 
 const Header = ({ setDrawerHidden }) => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
   const userInfo = useRecoilValue(userState);
   const navigate = useNavigate();
+  const setActive = useSetRecoilState(modalActiveState);
 
   return (
     <header>
@@ -52,7 +53,12 @@ const Header = ({ setDrawerHidden }) => {
                 className="input input-bordered border-gray-400"
               />
             </div>
-            <Link to={`/studio/channel/${userInfo.id}`}>
+            <Link
+              onClick={() => {
+                setActive(true);
+              }}
+              to={`/studio/channel/${userInfo.id}`}
+            >
               <i className="flex items-center fi fi-rr-video-plus text-3xl mr-2"></i>
             </Link>
 

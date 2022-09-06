@@ -1,7 +1,11 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { isEditingState, modalActiveState } from "../../../recoil";
 import { formatDate } from "../../../utils";
 
-const VideoListItem = ({ video, setActive, setIsEditing }) => {
+const VideoListItem = ({ video }) => {
+  const [active, setActive] = useRecoilState(modalActiveState);
+  const [isEditing, setIsEditing] = useRecoilState(isEditingState);
   return (
     video && (
       <tr>
