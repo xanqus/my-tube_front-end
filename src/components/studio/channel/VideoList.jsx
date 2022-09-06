@@ -6,7 +6,7 @@ import { BACKEND_URL } from "../../../utils";
 
 import VideoListItem from "./VideoListItem";
 
-const VideoList = () => {
+const VideoList = ({ setActive, setIsEditing }) => {
   const userInfo = useRecoilValue(userState);
   const [videos, setVideos] = useRecoilState(videoState);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const VideoList = () => {
         const data = await axios({
           url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
         });
-
+        console.log(data);
         setVideos(data.data);
         setLoading(false);
       } catch (e) {
@@ -59,7 +59,12 @@ const VideoList = () => {
         </thead>
         <tbody>
           {videos.map((video, index) => (
-            <VideoListItem key={index} video={video} />
+            <VideoListItem
+              key={index}
+              video={video}
+              setActive={setActive}
+              setIsEditing={setIsEditing}
+            />
           ))}
         </tbody>
       </table>

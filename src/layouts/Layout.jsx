@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 
 const Layout = ({ children }) => {
+  const [drawerHidden, setDrawerHidden] = useState("hidden");
   return (
     <>
-      <Header />
+      <Header setDrawerHidden={setDrawerHidden} />
       <main className="mt-14">{children}</main>
-      <div className="h-screen fixed top-14">
-        <div className="drawer">
+      <div className={"h-screen fixed top-14 " + drawerHidden}>
+        <div className="drawer z-0">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content"></div>
           <div className="drawer-side">

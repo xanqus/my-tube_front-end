@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authenticatedState, userState } from "../recoil";
 
-const Header = () => {
+const Header = ({ setDrawerHidden }) => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
   const userInfo = useRecoilValue(userState);
   const navigate = useNavigate();
@@ -16,6 +16,9 @@ const Header = () => {
             <label
               className="btn btn-square btn-ghost hover:bg-transparent"
               htmlFor="my-drawer"
+              onClick={() => {
+                setDrawerHidden((prev) => (prev ? "" : "hidden"));
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

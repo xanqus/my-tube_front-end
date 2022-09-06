@@ -7,15 +7,24 @@ import Layout from "../../layouts/Layout";
 
 const Channel = () => {
   const [active, setActive] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   return (
     <Layout>
-      <div className="flex">
-        <div className="w-60 flex-shrink-0 border border-r-0 border-t-0">
+      <div className="flex pointer-events-auto">
+        <div className="flex w-60 flex-shrink-0 border border-r-0 border-t-0 z-0">
           side menu
+          <div className="btn z-auto">click</div>
         </div>
         <div className="flex flex-col flex-grow z-0 border border-b-0">
           <ModalButton setActive={setActive}>
-            <div>채널 콘텐츠</div>
+            <div
+              onClick={() => {
+                console.log("active", active);
+                console.log("isEditing", isEditing);
+              }}
+            >
+              채널 콘텐츠
+            </div>
             <div
               className="flex justify-center items-center border w-auto ml-auto mr-4 text-md px-3 cursor-pointer"
               onClick={() => {
@@ -27,10 +36,15 @@ const Channel = () => {
             </div>
           </ModalButton>
 
-          <VideoList />
+          <VideoList setActive={setActive} setIsEditing={setIsEditing} />
         </div>
       </div>
-      <ModalBox active={active} setActive={setActive} />
+      <ModalBox
+        active={active}
+        setActive={setActive}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+      />
     </Layout>
   );
 };
