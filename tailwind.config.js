@@ -23,5 +23,11 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      backgroundColor: ["group-focus"],
+      scale: ["focus-within"],
+    },
+  },
   plugins: [require("daisyui"), require("flowbite/plugin")],
 };

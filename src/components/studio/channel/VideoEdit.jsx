@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { isEditingState, modalActiveState } from "../../../recoil";
+import VideoEditStep from "./videoEdit/VideoEditStep";
 
 const VideoEdit = ({ selectedVideo }) => {
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
+  const [stepNumber, setStepNumber] = useState(0);
   return (
     <div className="flex flex-col modal-box relative max-w-full w-240 h-208 rounded-md p-0">
-      <div className="flex border-b h-14">
+      <div className="flex border-b h-14 flex-shrink-0">
         <div className="flex justify-center items-center ml-5 text-lg">
           {selectedVideo && selectedVideo.videoName}
         </div>
@@ -24,27 +26,57 @@ const VideoEdit = ({ selectedVideo }) => {
           </label>
         </div>
       </div>
-      <div className="justify-center items-end h-96">
-        <div className="flex flex-col w-full">
-          <ul class="flex justify-center progressbar mt-8">
-            <li className="flex flex-col list-none float-left w-1/3 relative text-center">
-              <div className="absolute w-32 h-20 top-0 left-1/2 -translate-x-16 -translate-y-4 hover:bg-blue-200 hover:cursor-pointer rounded-md z-0"></div>
-              <div className="bg-white w-6 h-6 leading-6 border block mx-auto mt-0 mb-2.5 rounded-full border-blue-500 bg-blue-500 text-white z-10 pointer-events-none">
-                <div className="z-10 pointer-events-none">✓</div>
+      <div className="h-auto justify-center items-end">
+        <VideoEditStep stepNumber={stepNumber} setStepNumber={setStepNumber} />
+
+        <div className="h-full">
+          {stepNumber == 0 ? (
+            <div className="flex h-full pt-4">
+              <div className=" w-3/5 h-screen pl-12">
+                <div className="text-2xl font-bold h-12">세부정보</div>
+                <div className="border border-gray-300 focus-within:border-blue-500 rounded">
+                  <div className="text-sm pl-2 pt-2">제목(필수항목)</div>
+                  <input
+                    type="text"
+                    className="w-full border-none p-4 focus:ring-0"
+                  />
+                </div>
+                <div className="mt-6 border border-gray-300 focus-within:border-blue-500 rounded">
+                  <div className="text-sm pl-2 pt-2">설명</div>
+                  <textarea
+                    type="text"
+                    className="w-full border-none p-4 focus:ring-0 resize-none"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 mt-6">
+                  <div>미리보기 이미지</div>
+                  <div className="text-sm text-gray-400">
+                    동영상의 내용을 알려주는 사진을 선택하거나 업로드하세요.
+                    시청자의 시선을 사로잡을만한 이미지를 사용해 보세요.
+                  </div>
+                  <input type="file" />
+                </div>
               </div>
-              <div className="z-10 pointer-events-none">세부정보</div>
-              <div className="absolute w-[calc(100%-1.5rem)] h-0.5 bg-gray-400 top-[11px] left-1/2 translate-x-3 z-10 pointer-events-none"></div>
-            </li>
-            <li className="flex flex-col list-none float-left w-1/3 relative text-center">
-              <div className="absolute w-32 h-20 top-0 left-1/2 -translate-x-16 -translate-y-4 hover:bg-blue-200 hover:cursor-pointer rounded-md z-0"></div>
-              <div className="bg-white w-6 h-6 leading-6 border-4 block mx-auto mt-0 mb-2.5 rounded-full border-blue-500 text-white z-10 pointer-events-none">
-                <div className="z-10 pointer-events-none"></div>
+              <div className="flex flex-col items-end w-2/5 h-screen pr-12">
+                <div className="w-72 mt-12 ">
+                  <video
+                    src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+                    className="w-full rounded-t"
+                    controls
+                  ></video>
+                </div>
+                <div className="w-72 border border-gray-400 h-32  rounded-b text-sm p-2">
+                  <div>동영상 링크</div>
+                  <div>https://~~</div>
+                  <div>파일 이름</div>
+                  <div>파일 이름~~</div>
+                </div>
               </div>
-              <div className="z-10 pointer-events-none">세부정보</div>
-            </li>
-          </ul>
+            </div>
+          ) : (
+            <div>2번</div>
+          )}
         </div>
-        edit
       </div>
     </div>
   );
