@@ -69,7 +69,7 @@ const Login = ({ to }) => {
         <form onSubmit={doLogin}>
           <input
             type="text"
-            placeholder="ID"
+            placeholder="Email"
             value={email}
             onChange={onChangeIdInput}
           />

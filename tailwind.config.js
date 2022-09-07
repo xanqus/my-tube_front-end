@@ -18,6 +18,7 @@ module.exports = {
         240: "60rem",
       },
       inset: {
+        "11px": "11px",
         "15px": "15px",
       },
     },
