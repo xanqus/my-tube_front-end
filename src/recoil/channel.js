@@ -20,3 +20,9 @@ export const isEditingState = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const currentlySelectedVideoState = atom({
+  key: "currentlySelectedVideoState",
+  default: {},
+  effects_UNSTABLE: [persistAtom],
+});

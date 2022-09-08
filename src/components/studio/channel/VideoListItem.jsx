@@ -1,11 +1,18 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { isEditingState, modalActiveState } from "../../../recoil";
+import {
+  currentlySelectedVideoState,
+  isEditingState,
+  modalActiveState,
+} from "../../../recoil";
 import { formatDate } from "../../../utils";
 
-const VideoListItem = ({ video, setSelectedVideo }) => {
+const VideoListItem = ({ video }) => {
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
+  const [selectedVideo, setSelectedVideo] = useRecoilState(
+    currentlySelectedVideoState
+  );
   return (
     video && (
       <tr>
@@ -20,10 +27,7 @@ const VideoListItem = ({ video, setSelectedVideo }) => {
         <td className="border-y">
           <div className="flex">
             <div className="w-36">
-              <img
-                src="https://blog.kakaocdn.net/dn/m07x9/btqSLGu0ccF/WuCwiJPrNKx9IB3xpER7C1/img.png"
-                alt="thumnail"
-              />
+              <img src={video.thumbnailUrl} alt="thumnail" />
             </div>
             <div className="flex flex-col ml-6">
               <div
@@ -34,7 +38,7 @@ const VideoListItem = ({ video, setSelectedVideo }) => {
                   setIsEditing(true);
                 }}
               >
-                {video.videoName}
+                {video.title}
               </div>
               <div>설명추가</div>
             </div>

@@ -1,16 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userState, videoState } from "../../../recoil";
+import {
+  currentlySelectedVideoState,
+  userState,
+  videoState,
+} from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
 
 import VideoListItem from "./VideoListItem";
 
-const VideoList = ({ setSelectedVideo }) => {
+const VideoList = () => {
   const userInfo = useRecoilValue(userState);
   const [videos, setVideos] = useRecoilState(videoState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useRecoilState(
+    currentlySelectedVideoState
+  );
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -59,11 +67,7 @@ const VideoList = ({ setSelectedVideo }) => {
         </thead>
         <tbody>
           {videos.map((video, index) => (
-            <VideoListItem
-              key={index}
-              video={video}
-              setSelectedVideo={setSelectedVideo}
-            />
+            <VideoListItem key={index} video={video} />
           ))}
         </tbody>
       </table>
