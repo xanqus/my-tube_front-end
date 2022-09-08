@@ -1,11 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  currentlySelectedVideoState,
-  userState,
-  videoState,
-} from "../../../recoil";
+import { userState, videoState } from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
 
 import VideoListItem from "./VideoListItem";
@@ -15,9 +11,6 @@ const VideoList = () => {
   const [videos, setVideos] = useRecoilState(videoState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedVideo, setSelectedVideo] = useRecoilState(
-    currentlySelectedVideoState
-  );
 
   useEffect(() => {
     const getData = async () => {
@@ -52,7 +45,7 @@ const VideoList = () => {
               <input
                 type="checkbox"
                 checked={false}
-                className="rounded-none checkbox checkbox-sm"
+                className="rounded-none checkbox checkbox-sm focus:ring-0"
                 onChange={() => {}}
               />
             </th>

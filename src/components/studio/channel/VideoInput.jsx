@@ -37,7 +37,7 @@ const VideoInput = () => {
     return <div>{error.message}</div>;
   }
   return (
-    <div className="flex flex-col modal-box relative max-w-full w-240 h-208 rounded-md p-0">
+    <div className="flex flex-col modal-box relative max-w-full w-240 h-192 rounded-md p-0">
       <div className="flex border-b h-14">
         <div className="flex justify-center items-center ml-5 text-lg">
           동영상 업로드

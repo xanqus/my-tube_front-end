@@ -20,7 +20,7 @@ const VideoListItem = ({ video }) => {
           <input
             type="checkbox"
             checked="checked"
-            className="rounded-none checkbox checkbox-sm"
+            className="rounded-none checkbox checkbox-sm focus:ring-0"
             onChange={() => {}}
           />
         </th>
@@ -44,7 +44,9 @@ const VideoListItem = ({ video }) => {
             </div>
           </div>
         </td>
-        <td className="border-y">{video.isPublic ? "공개" : "미공개"}</td>
+        <td className="border-y">
+          {video.isTemp ? "초안" : video.isPublic ? "공개" : "미공개"}
+        </td>
         <td className="border-y">없음</td>
         <td className="border-y">
           <div className="flex flex-col">

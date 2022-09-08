@@ -12,11 +12,11 @@ const VideoEditStep = ({ stepNumber, setStepNumber }) => {
         ></div>
         <div
           className={`bg-white w-6 h-6 leading-6 border block mx-auto mt-0 mb-2.5 rounded-full border-blue-500 text-white z-10 pointer-events-none ${
-            stepNumber == 0 ? "border-4" : "border-2"
+            stepNumber === 0 ? "border-4" : "border-2"
           }`}
         >
           <div className="z-10 pointer-events-none text-blue-500 font-bold">
-            {stepNumber == 0 ? "" : "✓"}
+            {stepNumber === 0 ? "" : "✓"}
           </div>
         </div>
         <div className="z-10 pointer-events-none">세부정보</div>

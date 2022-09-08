@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import ModalBox from "../../components/common/ModalBox";
 import ModalButton from "../../components/common/ModalButton";
@@ -12,7 +11,6 @@ const Channel = () => {
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
 
-  const navigate = useNavigate();
   useEffect(() => {
     document.title = "채널 콘텐츠 - MyTube Studio";
   }, []);
