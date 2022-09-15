@@ -1,19 +1,28 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   currentlySelectedVideoState,
   isEditingState,
   modalActiveState,
+  userState,
+  videoState,
 } from "../../../recoil";
 import VideoEditStep from "./videoEdit/VideoEditStep";
+import { BACKEND_URL } from "../../../utils";
 
 const VideoEdit = () => {
+  const userInfo = useRecoilValue(userState);
   const [active, setActive] = useRecoilState(modalActiveState);
   const [isEditing, setIsEditing] = useRecoilState(isEditingState);
   const [stepNumber, setStepNumber] = useState(0);
+  const [videos, setVideos] = useRecoilState(videoState);
   const [selectedVideo, setSelectedVideo] = useRecoilState(
     currentlySelectedVideoState
   );
+  const [title, setTitle] = useState(selectedVideo.title);
+  const [description, setDescription] = useState(selectedVideo.description);
+  const [isPublic, setIsPublic] = useState(true);
 
   return (
     <div className="flex flex-col modal-box relative max-w-full w-240 h-192 rounded-md p-0">
@@ -25,10 +34,19 @@ const VideoEdit = () => {
           <label
             htmlFor="my-modal-4"
             className="flex justify-center items-center h-full cursor-pointer text-gray-700 font-bold"
-            onClick={() => {
+            onClick={async () => {
               setActive(false);
               setIsEditing(false);
               setSelectedVideo(null);
+              await axios({
+                url: `${BACKEND_URL}/api/v1/video/${selectedVideo.videoId}`,
+                method: "PATCH",
+                data: { title, description },
+              });
+              const data = await axios({
+                url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+              });
+              setVideos(data.data);
             }}
           >
             ✕
@@ -39,7 +57,7 @@ const VideoEdit = () => {
         <VideoEditStep stepNumber={stepNumber} setStepNumber={setStepNumber} />
 
         <div className="h-126">
-          {stepNumber == 0 ? (
+          {stepNumber === 0 ? (
             <div className="flex h-full pt-4">
               <div className=" w-3/5 pl-12">
                 <div className="text-2xl font-bold h-12">세부정보</div>
@@ -48,8 +66,10 @@ const VideoEdit = () => {
                   <input
                     type="text"
                     className="w-full border-none p-4 pt-3 focus:ring-0"
-                    value={selectedVideo.title}
-                    onChange={() => {}}
+                    value={title}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="mt-6 border border-gray-300 focus-within:border-blue-500 rounded">
@@ -58,6 +78,10 @@ const VideoEdit = () => {
                     type="text"
                     className="w-full border-none p-4 pt-3 focus:ring-0 resize-none"
                     placeholder="시청자에게 동영상에 대해 이야기하기"
+                    value={description}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="flex flex-col gap-2 mt-6">

@@ -19,7 +19,6 @@ const Channel = () => {
       <div className="flex pointer-events-auto">
         <div className="flex w-60 flex-shrink-0 border border-r-0 border-t-0 z-0">
           side menu
-          <div className="btn z-auto">click</div>
         </div>
         <div className="flex flex-col flex-grow z-0 border border-b-0">
           <ModalButton>
