@@ -33,9 +33,13 @@ const VideoListItem = ({ video }) => {
               <div
                 className="cursor-pointer hover:underline"
                 onClick={() => {
-                  setSelectedVideo(video);
-                  setActive(true);
-                  setIsEditing(true);
+                  if (video.isTemp) {
+                    setSelectedVideo(video);
+                    setActive(true);
+                    setIsEditing(true);
+                  } else {
+                    alert("already");
+                  }
                 }}
               >
                 {video.title}

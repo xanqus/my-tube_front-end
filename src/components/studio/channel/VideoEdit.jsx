@@ -78,7 +78,7 @@ const VideoEdit = () => {
                     type="text"
                     className="w-full border-none p-4 pt-3 focus:ring-0 resize-none"
                     placeholder="시청자에게 동영상에 대해 이야기하기"
-                    value={description}
+                    value={description || ""}
                     onChange={(e) => {
                       setDescription(e.target.value);
                     }}
