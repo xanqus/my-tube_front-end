@@ -124,7 +124,9 @@ const VideoEdit = () => {
                         name="radio-6"
                         className="radio checked:bg-gray-500 border-gray-500 "
                         checked
-                        onClick={() => {}}
+                        onClick={() => {
+                          setIsPublic(false);
+                        }}
                         onChange={() => {}}
                       />
                       <div className="ml-3">비공개</div>
@@ -135,7 +137,9 @@ const VideoEdit = () => {
                         name="radio-6"
                         className="radio checked:bg-gray-500 border-gray-500"
                         checked
-                        onClick={() => {}}
+                        onClick={() => {
+                          setIsPublic(true);
+                        }}
                         onChange={() => {}}
                       />
                       <div className="ml-3">공개</div>
@@ -177,7 +181,24 @@ const VideoEdit = () => {
                   <div>파일 이름</div>
                   <div>{selectedVideo.filename}</div>
                 </div>
-                <div className="btn btn-sm bg-blue-500 text-white border-none hover:bg-blue-500 rounded-none mt-auto">
+                <div
+                  onClick={async () => {
+                    setActive(false);
+                    setIsEditing(false);
+                    setSelectedVideo(null);
+                    await axios({
+                      url: `${BACKEND_URL}/api/v1/video/${selectedVideo.videoId}`,
+                      method: "PATCH",
+                      data: { title, description, isPublic, isTemp: false },
+                    });
+                    console.log(isPublic);
+                    const data = await axios({
+                      url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+                    });
+                    setVideos(data.data);
+                  }}
+                  className="btn btn-sm bg-blue-500 text-white border-none hover:bg-blue-500 rounded-none mt-auto"
+                >
                   저장
                 </div>
               </div>
