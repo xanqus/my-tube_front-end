@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../../layouts/Layout";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../../utils";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -12,7 +12,8 @@ const VideoEditor = () => {
   const [video, setVideo] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [isPublic, setIsPublic] = useState("video && video.isPublic");
+  const [isPublic, setIsPublic] = useState(null);
+  console.log(isPublic);
 
   useEffect(() => {
     const getData = async () => {
@@ -20,11 +21,11 @@ const VideoEditor = () => {
         url: `${BACKEND_URL}/api/v1/video/${params.id}`,
         method: "GET",
       });
-      console.log(data);
       setVideo(data.data);
       setTitle(data.data.title);
       setDescription(data.data.description);
       setIsPublic(data.data.isPublic);
+      console.log(data);
     };
     getData();
   }, []);
@@ -93,16 +94,20 @@ const VideoEditor = () => {
                   <video
                     className="w-full h-full rounded-t"
                     controls
-                    poster={video && video.thumbnailUrl}
+                    poster={video?.thumbnailUrl}
                   >
-                    <source src={video && video.videoUrl} />
+                    <source src={video?.videoUrl} />
                   </video>
                 </div>
                 <div className="w-full h-32 rounded-b text-sm p-2 bg-gray-50">
                   <div>동영상 링크</div>
-                  <div>https://~~</div>
-                  <div>파일 이름</div>
-                  <div>{video && video.filename}</div>
+                  <div className="text-blue-500">
+                    <Link
+                      to={`http://localhost:3000/watch?id=${video?.videoId}`}
+                    >{`http://localhost:3000/watch?id=${video?.videoId}`}</Link>
+                  </div>
+                  <div className="mt-3">파일 이름</div>
+                  <div>{video?.filename}</div>
                 </div>
               </div>
               <div className="form-control w-full max-w-xs focus:ring-0">
@@ -111,9 +116,7 @@ const VideoEditor = () => {
                 </label>
                 <select
                   className="select select-bordered focus:ring-0 focus:border-gray-300"
-                  defaultValue={
-                    video && (isPublic === true ? "public" : "private")
-                  }
+                  defaultValue={video?.isPublic === true ? "public" : "private"}
                   onChange={(e) => {
                     if (e.target.value === "public") {
                       setIsPublic(true);

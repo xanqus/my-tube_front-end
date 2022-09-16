@@ -10,6 +10,7 @@ import {
 } from "../../../recoil";
 import VideoEditStep from "./videoEdit/VideoEditStep";
 import { BACKEND_URL } from "../../../utils";
+import { Link } from "react-router-dom";
 
 const VideoEdit = () => {
   const userInfo = useRecoilValue(userState);
@@ -105,8 +106,12 @@ const VideoEdit = () => {
                 </div>
                 <div className="w-72 border border-gray-400 h-32  rounded-b text-sm p-2">
                   <div>동영상 링크</div>
-                  <div>https://~~</div>
-                  <div>파일 이름</div>
+                  <div className="text-blue-500">
+                    <Link
+                      to={`http://localhost:3000/watch?id=${selectedVideo.videoId}`}
+                    >{`http://localhost:3000/watch?id=${selectedVideo.videoId}`}</Link>
+                  </div>
+                  <div className="mt-3">파일 이름</div>
                   <div>{selectedVideo.filename}</div>
                 </div>
               </div>
@@ -177,8 +182,12 @@ const VideoEdit = () => {
                 </div>
                 <div className="w-72 border border-gray-400 h-32 rounded-b text-sm p-2">
                   <div>동영상 링크</div>
-                  <div>https://~~</div>
-                  <div>파일 이름</div>
+                  <div className="text-blue-500">
+                    <Link
+                      to={`http://localhost:3000/watch?id=${selectedVideo.videoId}`}
+                    >{`http://localhost:3000/watch?id=${selectedVideo.videoId}`}</Link>
+                  </div>
+                  <div className="mt-3">파일 이름</div>
                   <div>{selectedVideo.filename}</div>
                 </div>
                 <div
