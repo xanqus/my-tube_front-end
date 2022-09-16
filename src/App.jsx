@@ -7,6 +7,7 @@ import JwtAuthenticatedUser from './routes/JwtAuthenticatedUser';
 import Login from './routes/Login';
 import Studio from './routes/studio/Studio';
 import UserDetail from './routes/users/UserDetail';
+import VideoDetail from './routes/VideoDetail';
 import WorkSpace from './routes/WorkSpace';
 const About = lazy(() => import('./routes/About'));
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/about' element={<About />} />
+          <Route path='/watch' element={<VideoDetail />} />
 
           <Route element={<AuthRoutes />}>
             <Route path='/workspace/*' element={<WorkSpace />} />
