@@ -28,6 +28,9 @@ module.exports = {
         '11px': '11px',
         '15px': '15px',
       },
+      minWidth: {
+        170: '42.5rem',
+      },
     },
   },
   variants: {
