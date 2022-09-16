@@ -101,7 +101,7 @@ const VideoEditor = () => {
                   <div>동영상 링크</div>
                   <div className='text-blue-500'>
                     <Link
-                      to={`http://localhost:3000/watch?id=${video?.videoId}`}
+                      to={`/watch?id=${video?.videoId}`}
                     >{`http://localhost:3000/watch?id=${video?.videoId}`}</Link>
                   </div>
                   <div className='mt-3'>파일 이름</div>
