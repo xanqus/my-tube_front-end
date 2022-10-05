@@ -23,7 +23,7 @@ const VideoEdit = () => {
   );
   const [title, setTitle] = useState(selectedVideo.title);
   const [description, setDescription] = useState(selectedVideo.description);
-  const [isPublic, setIsPublic] = useState(true);
+  const [isPublic, setIsPublic] = useState(selectedVideo.isPublic);
 
   return (
     <div className="flex flex-col modal-box relative max-w-full w-240 h-192 rounded-md p-0">
@@ -40,12 +40,12 @@ const VideoEdit = () => {
               setIsEditing(false);
               setSelectedVideo(null);
               await axios({
-                url: `${BACKEND_URL}/api/v1/video/${selectedVideo.videoId}`,
+                url: `${BACKEND_URL}/video/${selectedVideo.videoId}`,
                 method: "PATCH",
                 data: { title, description },
               });
               const data = await axios({
-                url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+                url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
               });
               setVideos(data.data);
             }}
@@ -128,7 +128,7 @@ const VideoEdit = () => {
                         type="radio"
                         name="radio-6"
                         className="radio checked:bg-gray-500 border-gray-500 "
-                        checked
+                        checked={!isPublic}
                         onClick={() => {
                           setIsPublic(false);
                         }}
@@ -141,7 +141,7 @@ const VideoEdit = () => {
                         type="radio"
                         name="radio-6"
                         className="radio checked:bg-gray-500 border-gray-500"
-                        checked
+                        checked={isPublic}
                         onClick={() => {
                           setIsPublic(true);
                         }}
@@ -196,12 +196,12 @@ const VideoEdit = () => {
                     setIsEditing(false);
                     setSelectedVideo(null);
                     await axios({
-                      url: `${BACKEND_URL}/api/v1/video/${selectedVideo.videoId}`,
+                      url: `${BACKEND_URL}/video/${selectedVideo.videoId}`,
                       method: "PATCH",
                       data: { title, description, isPublic, isTemp: false },
                     });
                     const data = await axios({
-                      url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+                      url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
                     });
                     setVideos(data.data);
                   }}

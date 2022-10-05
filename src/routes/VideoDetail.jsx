@@ -17,7 +17,7 @@ const VideoDetail = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await axios({
-        url: `${BACKEND_URL}/api/v1/video/${videoId}`,
+        url: `${BACKEND_URL}/video/${videoId}`,
       });
       setVideo(data.data);
       console.log(data.data.videoUrl);
@@ -51,12 +51,12 @@ const VideoDetail = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex gap-6 mt-3">
+            <div className="flex gap-5 mt-3">
               <div>댓글 50,000개</div>
               <div>정렬 기준</div>
-              <BsList />
+              <BsList className="-ml-2 mt-1" />
             </div>
-            <div className="flex">
+            <div className="flex mt-3">
               <CgProfile className="text-4xl" />
               <input
                 type="text"

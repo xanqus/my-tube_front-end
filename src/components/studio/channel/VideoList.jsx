@@ -16,7 +16,7 @@ const VideoList = () => {
     const getData = async () => {
       try {
         const data = await axios({
-          url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+          url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
         });
         setVideos(data.data);
         setLoading(false);

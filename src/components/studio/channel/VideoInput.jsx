@@ -20,7 +20,7 @@ const VideoInput = () => {
 
       const data = await axios({
         headers: { "Content-Type": "multipart/form-data" },
-        url: `${BACKEND_URL}/api/v1/video?userId=${userInfo.id}`,
+        url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
         method: "POST",
         data: formData,
       });
