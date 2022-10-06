@@ -8,20 +8,42 @@ import { BiLike, BiDislike } from "react-icons/bi";
 import { RiShareForwardLine } from "react-icons/ri";
 import { BsList } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
+import Comment from "../components/videoDetail/Comment";
 
 const VideoDetail = () => {
   const [params] = useSearchParams();
   const [video, setVideo] = useState(null);
   const [text, setText] = useState("");
+  const [comments, setComments] = useState([]);
   const videoId = params.get("id");
+  const sendText = async (e) => {
+    e.preventDefault();
+    await axios({
+      url: `${BACKEND_URL}/comment/${videoId}`,
+      method: "POST",
+      data: {
+        text,
+      },
+    });
+    const latestComments = await axios({
+      url: `${BACKEND_URL}/comment/${videoId}`,
+      method: "GET",
+    });
+    setComments(latestComments.data);
+    setText("");
+  };
 
   useEffect(() => {
     const getData = async () => {
       const data = await axios({
         url: `${BACKEND_URL}/video/${videoId}`,
       });
+      const comments = await axios({
+        url: `${BACKEND_URL}/comment/${videoId}`,
+        method: "GET",
+      });
       setVideo(data.data);
-      console.log(data.data.videoUrl);
+      setComments(comments.data);
       document.title = data.data.title;
     };
     getData();
@@ -57,20 +79,7 @@ const VideoDetail = () => {
               <div>정렬 기준</div>
               <BsList className="-ml-2 mt-1" />
             </div>
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                await axios({
-                  url: `${BACKEND_URL}/comment/${videoId}`,
-                  method: "POST",
-                  data: {
-                    text,
-                  },
-                });
-                setText("");
-              }}
-              className="flex flex-col"
-            >
+            <form onSubmit={sendText} className="flex flex-col">
               <div className="flex mt-3">
                 <CgProfile className="text-4xl" />
                 <input
@@ -84,17 +93,18 @@ const VideoDetail = () => {
               </div>
               <div
                 className="ml-auto mt-3 mr-2 flex gap-4 cursor-pointer"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  setText("");
-                }}
+                onClick={sendText}
               >
                 댓글
               </div>
             </form>
+            <ul>
+              {comments.map((comment, index) => (
+                <Comment comment={comment} key={index} />
+              ))}
+            </ul>
           </div>
         </div>
-
         <div className="w-96 h-screen lg:flex hidden"></div>
       </div>
     </Layout>
