@@ -12,6 +12,7 @@ import { CgProfile } from "react-icons/cg";
 const VideoDetail = () => {
   const [params] = useSearchParams();
   const [video, setVideo] = useState(null);
+  const [text, setText] = useState("");
   const videoId = params.get("id");
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const VideoDetail = () => {
     <Layout>
       <div className="flex">
         <div className="flex-grow h-screen min-w-[42.5rem] ml-24 mr-6 mt-8">
-          <video controls src={video?.videoUrl} className="w-full" />
+          <video controls src={video?.videoUrl} className="w-full" autoPlay />
           <div className="h-28 mt-3">
             <div className="text-2xl font-bold">{video?.title}</div>
             <div>
@@ -56,17 +57,41 @@ const VideoDetail = () => {
               <div>정렬 기준</div>
               <BsList className="-ml-2 mt-1" />
             </div>
-            <div className="flex mt-3">
-              <CgProfile className="text-4xl" />
-              <input
-                type="text"
-                className="w-full ml-4 border-t-0 border-r-0 border-l-0 focus:ring-0 focus:outline-0"
-              />
-            </div>
-            <div className="ml-auto mt-3 mr-2 flex gap-4">
-              <div>취소</div>
-              <div>댓글</div>
-            </div>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await axios({
+                  url: `${BACKEND_URL}/comment/${videoId}`,
+                  method: "POST",
+                  data: {
+                    text,
+                  },
+                });
+                setText("");
+              }}
+              className="flex flex-col"
+            >
+              <div className="flex mt-3">
+                <CgProfile className="text-4xl" />
+                <input
+                  type="text"
+                  className="w-full ml-4 border-t-0 border-r-0 border-l-0 focus:ring-0 focus:outline-0"
+                  value={text}
+                  onChange={(e) => {
+                    setText(e.target.value);
+                  }}
+                />
+              </div>
+              <div
+                className="ml-auto mt-3 mr-2 flex gap-4 cursor-pointer"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setText("");
+                }}
+              >
+                댓글
+              </div>
+            </form>
           </div>
         </div>
 
