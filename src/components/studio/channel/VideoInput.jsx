@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalActiveState, userState, videoState } from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
 
@@ -8,7 +8,7 @@ const VideoInput = () => {
   const [error, setError] = useState(null);
   const userInfo = useRecoilValue(userState);
   const setVideoState = useSetRecoilState(videoState);
-  const [active, setActive] = useRecoilState(modalActiveState);
+  const setActive = useSetRecoilState(modalActiveState);
   const uploadVideos = async (e) => {
     e.preventDefault();
     try {

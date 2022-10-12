@@ -5,6 +5,7 @@ const JwtAuthenticatedUser = () => {
   useEffect(() => {
     const getUsers = async () => {
       const data = await ApiController({ url: "/api/v1/user", method: "GET" });
+      console.log(data);
     };
     getUsers();
   }, []);

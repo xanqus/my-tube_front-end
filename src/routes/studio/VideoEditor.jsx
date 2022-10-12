@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Layout from "../../layouts/Layout";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../../utils";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { currentlySelectedVideoState, userState } from "../../recoil";
 import { useEffect } from "react";
 
 const VideoEditor = () => {

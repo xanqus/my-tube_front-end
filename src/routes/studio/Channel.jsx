@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import ModalBox from "../../components/common/ModalBox";
 import ModalButton from "../../components/common/ModalButton";
 import VideoList from "../../components/studio/channel/VideoList";
@@ -9,7 +9,7 @@ import { isEditingState, modalActiveState } from "../../recoil";
 
 const Channel = () => {
   const [active, setActive] = useRecoilState(modalActiveState);
-  const [isEditing, setIsEditing] = useRecoilState(isEditingState);
+  const isEditing = useRecoilValue(isEditingState);
 
   useEffect(() => {
     document.title = "채널 콘텐츠 - MyTube Studio";

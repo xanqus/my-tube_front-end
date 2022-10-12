@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Layout from "../layouts/Layout";
 
 const About = () => {
@@ -14,7 +13,6 @@ const About = () => {
     const getData = async () => {};
     getData();
   }, []);
-  const [coins, setCoins] = useState([]);
   return (
     <Layout>
       <div>

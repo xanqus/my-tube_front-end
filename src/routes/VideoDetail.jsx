@@ -9,7 +9,6 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { BsList } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import Comment from "../components/videoDetail/Comment";
-import { comment } from "postcss";
 
 const VideoDetail = () => {
   const [params] = useSearchParams();
@@ -99,7 +98,7 @@ const VideoDetail = () => {
                 댓글
               </div>
             </form>
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-4 mb-8">
               {comments.map((comment, index) => (
                 <Comment comment={comment} key={index} />
               ))}

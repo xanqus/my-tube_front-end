@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import {
   currentlySelectedVideoState,
   isEditingState,
@@ -9,11 +9,9 @@ import {
 import { formatDate } from "../../../utils";
 
 const VideoListItem = ({ video }) => {
-  const [active, setActive] = useRecoilState(modalActiveState);
-  const [isEditing, setIsEditing] = useRecoilState(isEditingState);
-  const [selectedVideo, setSelectedVideo] = useRecoilState(
-    currentlySelectedVideoState
-  );
+  const setActive = useSetRecoilState(modalActiveState);
+  const setIsEditing = useSetRecoilState(isEditingState);
+  const setSelectedVideo = useSetRecoilState(currentlySelectedVideoState);
   const navigate = useNavigate();
   return (
     video && (

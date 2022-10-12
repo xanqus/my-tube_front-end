@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentlySelectedVideoState,
   isEditingState,
@@ -14,10 +14,10 @@ import { Link } from "react-router-dom";
 
 const VideoEdit = () => {
   const userInfo = useRecoilValue(userState);
-  const [active, setActive] = useRecoilState(modalActiveState);
-  const [isEditing, setIsEditing] = useRecoilState(isEditingState);
+  const setActive = useSetRecoilState(modalActiveState);
+  const setIsEditing = useSetRecoilState(isEditingState);
   const [stepNumber, setStepNumber] = useState(0);
-  const [videos, setVideos] = useRecoilState(videoState);
+  const setVideos = useSetRecoilState(videoState);
   const [selectedVideo, setSelectedVideo] = useRecoilState(
     currentlySelectedVideoState
   );
