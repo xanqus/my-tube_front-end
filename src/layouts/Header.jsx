@@ -1,11 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { authenticatedState, modalActiveState, userState } from "../recoil";
+import {
+  authenticatedState,
+  channelState,
+  modalActiveState,
+  userState,
+} from "../recoil";
 
 const Header = ({ setDrawerHidden }) => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
   const userInfo = useRecoilValue(userState);
+  const channelInfo = useRecoilValue(channelState);
   const navigate = useNavigate();
   const setActive = useSetRecoilState(modalActiveState);
 
@@ -67,7 +73,7 @@ const Header = ({ setDrawerHidden }) => {
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
                     <img
-                      src="https://placeimg.com/80/80/people"
+                      src={channelInfo.channelProfileImageUrl}
                       alt="profile"
                     />
                   </div>

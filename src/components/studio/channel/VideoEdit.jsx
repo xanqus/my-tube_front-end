@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  channelState,
   currentlySelectedVideoState,
   isEditingState,
   modalActiveState,
@@ -24,6 +25,7 @@ const VideoEdit = () => {
   const [title, setTitle] = useState(selectedVideo.title);
   const [description, setDescription] = useState(selectedVideo.description);
   const [isPublic, setIsPublic] = useState(selectedVideo.isPublic);
+  const channelInfo = useRecoilValue(channelState);
 
   return (
     <div className="flex flex-col modal-box relative max-w-full w-240 h-192 rounded-md p-0">
@@ -45,7 +47,7 @@ const VideoEdit = () => {
                 data: { title, description },
               });
               const data = await axios({
-                url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
+                url: `${BACKEND_URL}/video?channelId=${channelInfo.id}`,
               });
               setVideos(data.data);
             }}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { authenticatedState, userState } from "../recoil";
+import { authenticatedState, channelState, userState } from "../recoil";
 import {
   GoogleLogin,
   googleLogout,
@@ -23,6 +23,7 @@ const Login = ({ to }) => {
   const [password, setPassword] = useState("");
   const setAuthenticated = useSetRecoilState(authenticatedState);
   const setUserInfo = useSetRecoilState(userState);
+  const setChannelState = useSetRecoilState(channelState);
   const onChangeIdInput = (e) => {
     setEmail(e.target.value);
   };
@@ -52,6 +53,15 @@ const Login = ({ to }) => {
         console.log(payload);
         console.log(payload.id);
         setUserInfo({ id: payload.id, username: payload.username });
+        const getChannel = async () => {
+          const data = await axios({
+            url: `${BACKEND_URL}/channel/${payload.username}`,
+            method: "GET",
+          });
+          setChannelState(data.data);
+        };
+
+        getChannel();
 
         setAuthenticated(true);
         localStorage.setItem("login-token", data.headers.authorization);

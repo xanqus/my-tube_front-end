@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { modalActiveState, userState, videoState } from "../../../recoil";
+import { useParams } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { modalActiveState, videoState } from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
 
 const VideoInput = () => {
   const [error, setError] = useState(null);
-  const userInfo = useRecoilValue(userState);
   const setVideoState = useSetRecoilState(videoState);
   const setActive = useSetRecoilState(modalActiveState);
+  const params = useParams();
   const uploadVideos = async (e) => {
     e.preventDefault();
     try {
@@ -20,7 +21,7 @@ const VideoInput = () => {
 
       const data = await axios({
         headers: { "Content-Type": "multipart/form-data" },
-        url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
+        url: `${BACKEND_URL}/video?channelId=${params.id}`,
         method: "POST",
         data: formData,
       });

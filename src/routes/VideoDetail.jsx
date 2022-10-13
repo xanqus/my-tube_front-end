@@ -7,15 +7,18 @@ import { BACKEND_URL, formatDate } from "../utils";
 import { BiLike, BiDislike } from "react-icons/bi";
 import { RiShareForwardLine } from "react-icons/ri";
 import { BsList } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
 import Comment from "../components/videoDetail/Comment";
+import { useRecoilValue } from "recoil";
+import { channelState } from "../recoil";
 
 const VideoDetail = () => {
   const [params] = useSearchParams();
   const [video, setVideo] = useState(null);
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
+  const channelInfo = useRecoilValue(channelState);
   const videoId = params.get("id");
+
   const sendText = async (e) => {
     e.preventDefault();
     await axios({
@@ -35,16 +38,16 @@ const VideoDetail = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await axios({
+      const videos = await axios({
         url: `${BACKEND_URL}/video/${videoId}`,
       });
       const comments = await axios({
         url: `${BACKEND_URL}/comment/${videoId}`,
         method: "GET",
       });
-      setVideo(data.data);
+      setVideo(videos.data);
       setComments(comments.data);
-      document.title = data.data.title;
+      document.title = videos.data.title;
     };
     getData();
   }, []);
@@ -81,7 +84,13 @@ const VideoDetail = () => {
             </div>
             <form onSubmit={sendText} className="flex flex-col">
               <div className="flex mt-3">
-                <CgProfile className="text-4xl" />
+                <div className="w-8 h-8">
+                  <img
+                    className="w-full h-full"
+                    src={channelInfo.channelProfileImageUrl}
+                    alt="profile"
+                  />
+                </div>
                 <input
                   type="text"
                   className="w-full ml-4 border-t-0 border-r-0 border-l-0 focus:ring-0 focus:outline-0"

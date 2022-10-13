@@ -14,3 +14,9 @@ export const userState = atom({
   default: {},
   effects_UNSTABLE: [persistAtom],
 });
+
+export const channelState = atom({
+  key: "channelState",
+  default: {},
+  effects_UNSTABLE: [persistAtom],
+});

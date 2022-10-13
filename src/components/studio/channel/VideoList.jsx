@@ -1,22 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userState, videoState } from "../../../recoil";
+import { useParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { videoState } from "../../../recoil";
 import { BACKEND_URL } from "../../../utils";
 
 import VideoListItem from "./VideoListItem";
 
 const VideoList = () => {
-  const userInfo = useRecoilValue(userState);
   const [videos, setVideos] = useRecoilState(videoState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const params = useParams();
 
   useEffect(() => {
     const getData = async () => {
       try {
         const data = await axios({
-          url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
+          url: `${BACKEND_URL}/video?channelId=${params.id}`,
         });
         setVideos(data.data);
         setLoading(false);
