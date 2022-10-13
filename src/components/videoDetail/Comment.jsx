@@ -4,7 +4,7 @@ import { CgProfile } from "react-icons/cg";
 
 const Comment = ({ comment }) => {
   return (
-    <li className="flex gap-4">
+    <li className="flex gap-6">
       <div className="mt-1 w-8 h-8">
         <img
           className="w-full h-full"
@@ -13,7 +13,7 @@ const Comment = ({ comment }) => {
         />
       </div>
       <div>
-        <div className="font-bold">{comment.userName}</div>
+        <div className="font-bold">{comment.channelName}</div>
         <div>{comment.text}</div>
         <div className="flex gap-2">
           <BiLike className="mt-1" />
