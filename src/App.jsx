@@ -8,6 +8,7 @@ import Login from "./routes/Login";
 import Studio from "./routes/studio/Studio";
 import VideoDetail from "./routes/VideoDetail";
 import WorkSpace from "./routes/WorkSpace";
+import Channel from "./routes/studio/Channel";
 import ChannelDetail from "./routes/channel/ChannelDetail";
 const About = lazy(() => import("./routes/About"));
 
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/watch" element={<VideoDetail />} />
+          <Route path="/channel/:id" element={<ChannelDetail />} />
 
           <Route element={<AuthRoutes />}>
             <Route path="/workspace/*" element={<WorkSpace />} />
@@ -30,7 +32,7 @@ const App = () => {
               path="/jwtAuthenticatedUser"
               element={<JwtAuthenticatedUser />}
             />
-            <Route path="/users/:id" element={<ChannelDetail />} />
+
             <Route path="/studio/*" element={<Studio />}></Route>
           </Route>
         </Routes>

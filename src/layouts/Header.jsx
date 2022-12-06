@@ -84,7 +84,7 @@ const Header = ({ setDrawerHidden }) => {
                   className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link to={`/users/${userInfo.id}`}>내 채널</Link>
+                    <Link to={`/channel/${userInfo.id}`}>내 채널</Link>
                   </li>
                   <li>
                     <div>Settings</div>
