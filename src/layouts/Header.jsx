@@ -15,6 +15,7 @@ const Header = ({ setDrawerHidden }) => {
   const navigate = useNavigate();
   const setActive = useSetRecoilState(modalActiveState);
 
+  console.log(channelInfo);
   return (
     <header>
       <div className="h-14 fixed top-0 left-0 w-full shadow-md z-10">
@@ -83,7 +84,7 @@ const Header = ({ setDrawerHidden }) => {
                   className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link to={`/users/${userInfo.id}`}>Profile</Link>
+                    <Link to={`/users/${userInfo.id}`}>내 채널</Link>
                   </li>
                   <li>
                     <div>Settings</div>

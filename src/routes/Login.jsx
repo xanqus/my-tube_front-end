@@ -58,7 +58,8 @@ const Login = ({ to }) => {
             url: `${BACKEND_URL}/channel/${payload.username}`,
             method: "GET",
           });
-          setChannelState(data.data);
+          // TODO: 로그인시 channelstate 마지막 사용한 채널로 변경
+          setChannelState(data.data[0]);
         };
 
         getChannel();
