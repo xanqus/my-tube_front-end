@@ -15,7 +15,6 @@ const Header = ({ setDrawerHidden }) => {
   const navigate = useNavigate();
   const setActive = useSetRecoilState(modalActiveState);
 
-  console.log(channelInfo);
   return (
     <header>
       <div className="h-14 fixed top-0 left-0 w-full shadow-md z-10">
