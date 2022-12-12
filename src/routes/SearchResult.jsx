@@ -11,8 +11,6 @@ const SearchResult = () => {
   const [searchedVideos, setSearchedVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(searchParams.get('search_query'));
-
   useEffect(() => {
     const searchVideosByTitleAndDescription = async () => {
       const videos = await axios({
@@ -21,21 +19,20 @@ const SearchResult = () => {
           'search_query'
         )}&description=${searchParams.get('search_query')}`,
       });
-      console.log(videos.data);
       setSearchedVideos(videos.data);
       setLoading(false);
     };
 
     searchVideosByTitleAndDescription();
-  }, []);
+  }, [searchParams]);
   if (loading) return <div>loading...</div>;
 
   return (
     <Layout>
       <div className='flex flex-col xl:ml-96'>
-        <div className='flex flex-col w-full flex-shrink mt-8 bg-red-500'>
+        <div className='flex flex-col w-full flex-shrink mt-8 gap-6'>
           {searchedVideos.map((video, index) => (
-            <SearchedVideoItem key={index} />
+            <SearchedVideoItem key={index} video={video} />
           ))}
         </div>
       </div>
