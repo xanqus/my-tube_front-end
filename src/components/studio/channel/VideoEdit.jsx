@@ -203,8 +203,9 @@ const VideoEdit = () => {
                       data: { title, description, isPublic, isTemp: false },
                     });
                     const data = await axios({
-                      url: `${BACKEND_URL}/video?userId=${userInfo.id}`,
+                      url: `${BACKEND_URL}/video?channelId=${channelInfo.id}`,
                     });
+
                     setVideos(data.data);
                   }}
                   className="btn btn-sm bg-blue-500 text-white border-none hover:bg-blue-500 rounded-none mt-auto"

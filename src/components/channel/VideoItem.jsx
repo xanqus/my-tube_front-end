@@ -13,7 +13,7 @@ const VideoItem = ({ video }) => {
         navigate(`/watch?id=${videoId}`);
       }}
     >
-      <div className="w-60 md:w-52 lg:w-60 2xl:w-80">
+      <div className="w-60 md:w-52 lg:w-60 2xl:w-72">
         <video
           src={videoUrl}
           poster={thumbnailUrl}

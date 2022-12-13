@@ -19,11 +19,15 @@ const VideoInput = () => {
         formData.append("files", e.target.files[key])
       );
 
-      const data = await axios({
+      await axios({
         headers: { "Content-Type": "multipart/form-data" },
         url: `${BACKEND_URL}/video?channelId=${params.id}`,
         method: "POST",
         data: formData,
+      });
+      const data = await axios({
+        url: `${BACKEND_URL}/video?channelId=${params.id}`,
+        method: "GET",
       });
       e.target.value = "";
       setVideoState(data.data);
