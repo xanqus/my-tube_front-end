@@ -33,7 +33,14 @@ const VideoItem = ({ video }) => {
           }}
           onMouseLeave={(e) => {
             e.currentTarget.muted = true;
-            e.currentTarget.pause();
+            var isPlaying =
+              e.currentTarget.currentTime > 0 &&
+              !e.currentTarget.paused &&
+              !e.currentTarget.ended &&
+              e.currentTarget.readyState > e.currentTarget.HAVE_CURRENT_DATA;
+            if (isPlaying) {
+              e.currentTarget.pause();
+            }
             e.currentTarget.currentTime = 0;
           }}
         />

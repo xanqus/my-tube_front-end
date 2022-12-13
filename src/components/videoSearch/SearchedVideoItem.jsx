@@ -6,9 +6,10 @@ import { formatDate } from '../../utils';
 const SearchedVideoItem = ({ video }) => {
   const navigate = useNavigate();
   const videoRef = useRef();
+
   return (
     <div
-      className='flex gap-3 cursor-pointer'
+      className='flex gap-3 cursor-pointer max-w-4xl w-full'
       onClick={() => {
         navigate(`/watch?id=${video.id}`);
       }}
@@ -25,7 +26,14 @@ const SearchedVideoItem = ({ video }) => {
       }}
       onMouseLeave={() => {
         videoRef.current.muted = true;
-        videoRef.current.pause();
+        var isPlaying =
+          videoRef.current.currentTime > 0 &&
+          !videoRef.current.paused &&
+          !videoRef.current.ended &&
+          videoRef.current.readyState > videoRef.current.HAVE_CURRENT_DATA;
+        if (isPlaying) {
+          videoRef.current.pause();
+        }
         videoRef.current.currentTime = 0;
       }}
     >
@@ -38,14 +46,14 @@ const SearchedVideoItem = ({ video }) => {
           ref={videoRef}
         />
       </div>
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 flex-grow'>
         <div>{video?.title}</div>
         <div className='flex gap-3'>
           <div>조회수 {video?.views}회</div>
           <div>{formatDate(video.reg_date)}</div>
         </div>
         <div
-          className='flex gap-2 z-999'
+          className='flex gap-2'
           onClick={(e) => {
             if (e.currentTarget != e.target) {
               e.stopPropagation();
@@ -58,7 +66,16 @@ const SearchedVideoItem = ({ video }) => {
           </div>
           <div>{video?.channel_name}</div>
         </div>
-        <div></div>
+        <div>{video?.description}</div>
+
+        <div
+          className='w-full h-full cursor-default'
+          onClick={(e) => {
+            if (e.currentTarget == e.target) {
+              e.stopPropagation();
+            }
+          }}
+        ></div>
       </div>
     </div>
   );
