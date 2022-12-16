@@ -18,7 +18,7 @@ pipeline {
         stage('connect test'){
             steps{
                 sh """
-                echo connect
+                echo connect web hook test
                 """
             }
         }
