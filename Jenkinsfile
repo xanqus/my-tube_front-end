@@ -37,6 +37,7 @@ pipeline {
         stage('Docker build') {
             agent any
             steps {
+                sh 'mv /root/config/nginx/nginx.conf nginx.conf'
                 sh 'docker build -t my-tube-frontend:latest .'
             }
         }
