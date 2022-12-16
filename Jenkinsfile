@@ -47,7 +47,7 @@ pipeline {
                 sh 'docker ps -f my-tube-frontend -q | xargs --no-run-if-empty docker container stop'
                 sh 'docker container ls -a -f name=my-tube-frontend -q | xargs -r docker container rm'
                 sh 'docker images --no-trunc --all --quiet --filter="dangling=true" | xargs --no-run-if-empty docker rmi'
-                sh 'docker run -d --name my-tube-frontend-dev -p 8090:80 my-tube-frontend:latest'
+                sh 'docker run -d --name my-tube-frontend-dev -p 8090:80 --restart unless-stopped my-tube-frontend:latest'
             }
         }
     }
