@@ -93,7 +93,7 @@ const Login = ({ to }) => {
           <button type="submit">로그인</button>
         </form>
       </div>
-      <div className="">
+      {/* <div className="">
         <GoogleOAuthProvider clientId="783164907876-44457lrh2o4ggner2rq66vffdechevng.apps.googleusercontent.com">
           <GoogleLogin
             type="icon"
@@ -111,7 +111,7 @@ const Login = ({ to }) => {
         >
           logout
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
