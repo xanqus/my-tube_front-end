@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil";
 import {
   authenticatedState,
   channelState,
   modalActiveState,
   userState,
+  videoState,
 } from "../recoil";
 
 const Header = ({ setDrawerHidden }) => {
   const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
-  const userInfo = useRecoilValue(userState);
   const channelInfo = useRecoilValue(channelState);
+  const resetUserInfo = useResetRecoilState(userState);
+  const resetChannelInfo = useResetRecoilState(channelState);
+  const resetVideoState = useResetRecoilState(videoState);
   const navigate = useNavigate();
   const setActive = useSetRecoilState(modalActiveState);
   const [searchword, setSearchword] = useState("");
@@ -102,6 +110,9 @@ const Header = ({ setDrawerHidden }) => {
                     <div
                       onClick={() => {
                         setAuthenticated(false);
+                        resetVideoState();
+                        resetUserInfo();
+                        resetChannelInfo();
                         navigate("/");
                       }}
                     >

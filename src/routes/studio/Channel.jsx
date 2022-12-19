@@ -1,18 +1,22 @@
 import React from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import ModalBox from "../../components/common/ModalBox";
 import ModalButton from "../../components/common/ModalButton";
 import VideoList from "../../components/studio/channel/VideoList";
 import Layout from "../../layouts/Layout";
-import { isEditingState, modalActiveState } from "../../recoil";
+import { channelState, isEditingState, modalActiveState } from "../../recoil";
 
 const Channel = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useRecoilState(modalActiveState);
   const isEditing = useRecoilValue(isEditingState);
+  const channelInfo = useRecoilValue(channelState);
 
   useEffect(() => {
     document.title = "채널 콘텐츠 - MyTube Studio";
+    navigate(`/studio/channel/${channelInfo.id}`, { replace: true });
   }, []);
   return (
     <Layout>

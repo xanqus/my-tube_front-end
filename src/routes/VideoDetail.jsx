@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import Layout from "../layouts/Layout";
 import { BACKEND_URL, formatDate } from "../utils";
 import { BiLike, BiDislike } from "react-icons/bi";
@@ -9,9 +9,11 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { BsList } from "react-icons/bs";
 import Comment from "../components/videoDetail/Comment";
 import { useRecoilValue } from "recoil";
-import { channelState } from "../recoil";
+import { authenticatedState, channelState } from "../recoil";
 
 const VideoDetail = () => {
+  const navigate = useNavigate();
+  const authenticated = useRecoilValue(authenticatedState);
   const [params] = useSearchParams();
   const [video, setVideo] = useState(null);
   const [text, setText] = useState("");
@@ -21,19 +23,23 @@ const VideoDetail = () => {
 
   const sendText = async (e) => {
     e.preventDefault();
-    await axios({
-      url: `${BACKEND_URL}/comment/${videoId}`,
-      method: "POST",
-      data: {
-        text,
-      },
-    });
-    const latestComments = await axios({
-      url: `${BACKEND_URL}/comment/${videoId}`,
-      method: "GET",
-    });
-    setComments(latestComments.data);
-    setText("");
+    if (authenticated) {
+      await axios({
+        url: `${BACKEND_URL}/comment/${videoId}`,
+        method: "POST",
+        data: {
+          text,
+        },
+      });
+      const latestComments = await axios({
+        url: `${BACKEND_URL}/comment/${videoId}`,
+        method: "GET",
+      });
+      setComments(latestComments.data);
+      setText("");
+    } else {
+      navigate("/login");
+    }
   };
 
   useEffect(() => {
