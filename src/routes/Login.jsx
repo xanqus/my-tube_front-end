@@ -15,7 +15,7 @@ const responseGoogle = (response) => {
   console.log("response", response);
 };
 
-const Login = ({ to }) => {
+const Login = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -66,7 +66,8 @@ const Login = ({ to }) => {
 
         setAuthenticated(true);
         localStorage.setItem("login-token", data.headers.authorization);
-        if (location.pathname === "/login") return navigate("/");
+
+        navigate(location?.state?.to);
       }
     } catch (e) {
       console.log(e);

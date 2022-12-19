@@ -82,6 +82,7 @@ const Header = ({ setDrawerHidden }) => {
                 setActive(true);
               }}
               to={`/studio/channel/${channelInfo.id}`}
+              state={{ to: `/studio/channel/${channelInfo.id}` }}
             >
               <i className="flex items-center fi fi-rr-video-plus text-3xl mr-2"></i>
             </Link>
@@ -125,7 +126,9 @@ const Header = ({ setDrawerHidden }) => {
               <div className="flex">
                 <div className="mr-2">회원가입</div>
                 <div className="mr-2">
-                  <Link to="/login">로그인</Link>
+                  <Link to="/login" state={{ to: "/" }}>
+                    로그인
+                  </Link>
                 </div>
               </div>
             )}

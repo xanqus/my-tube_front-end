@@ -1,7 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import Layout from "../layouts/Layout";
 import { BACKEND_URL, formatDate } from "../utils";
 import { BiLike, BiDislike } from "react-icons/bi";
@@ -13,6 +18,8 @@ import { authenticatedState, channelState } from "../recoil";
 
 const VideoDetail = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
   const authenticated = useRecoilValue(authenticatedState);
   const [params] = useSearchParams();
   const [video, setVideo] = useState(null);
@@ -23,23 +30,20 @@ const VideoDetail = () => {
 
   const sendText = async (e) => {
     e.preventDefault();
-    if (authenticated) {
-      await axios({
-        url: `${BACKEND_URL}/comment/${videoId}`,
-        method: "POST",
-        data: {
-          text,
-        },
-      });
-      const latestComments = await axios({
-        url: `${BACKEND_URL}/comment/${videoId}`,
-        method: "GET",
-      });
-      setComments(latestComments.data);
-      setText("");
-    } else {
-      navigate("/login");
-    }
+
+    await axios({
+      url: `${BACKEND_URL}/comment/${videoId}`,
+      method: "POST",
+      data: {
+        text,
+      },
+    });
+    const latestComments = await axios({
+      url: `${BACKEND_URL}/comment/${videoId}`,
+      method: "GET",
+    });
+    setComments(latestComments.data);
+    setText("");
   };
 
   useEffect(() => {
@@ -103,6 +107,13 @@ const VideoDetail = () => {
                   value={text}
                   onChange={(e) => {
                     setText(e.target.value);
+                  }}
+                  onClick={() => {
+                    if (!authenticated) {
+                      navigate("/login", {
+                        state: { to: location.pathname + location.search },
+                      });
+                    }
                   }}
                 />
               </div>
