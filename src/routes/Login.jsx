@@ -16,10 +16,8 @@ const responseGoogle = (response) => {
 };
 
 const Login = ({ to }) => {
-  console.log("to: ", to);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location pathname: ", location.pathname);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,7 +60,6 @@ const Login = ({ to }) => {
           });
           // TODO: 로그인시 channelstate 마지막 사용한 채널로 변경
           setChannelState(data.data[0]);
-          console.log("channel data: ", data.data[0]);
         };
 
         getChannel();

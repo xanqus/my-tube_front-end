@@ -13,28 +13,28 @@ const VideoList = () => {
   const [error, setError] = useState(null);
   const params = useParams();
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await axios({
-          url: `${BACKEND_URL}/video?channelId=${params.id}`,
-        });
-        setVideos(data.data);
-        setLoading(false);
-      } catch (e) {
-        setError(e);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const data = await axios({
+  //         url: `${BACKEND_URL}/video?channelId=${params.id}`,
+  //       });
+  //       setVideos(data.data);
+  //       setLoading(false);
+  //     } catch (e) {
+  //       setError(e);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
 
-  if (error) {
-    console.log("error", error);
-    return <>{error.message}</>;
-  }
-  if (loading) {
-    return <>loading...</>;
-  }
+  // if (error) {
+  //   console.log("error", error);
+  //   return <>{error.message}</>;
+  // }
+  // if (loading) {
+  //   return <>loading...</>;
+  // }
 
   return (
     <div className="overflow-x">
