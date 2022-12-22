@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import VideoItem from '../../components/channel/VideoItem';
+import VideoItem from '../../components/home/VideoItem';
 import Layout from '../../layouts/Layout';
 import { authenticatedState, userState } from '../../recoil';
 import { BACKEND_URL } from '../../utils';

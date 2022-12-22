@@ -1,10 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { formatDate } from '../../utils';
+import { BACKEND_URL, formatDate } from '../../utils';
 
-const VideoItem = ({ video, from }) => {
+const VideoItem = ({ video }) => {
   const navigate = useNavigate();
-  const { videoId, videoUrl, thumbnailUrl, title, regDate } = video;
+  const { videoId, videoUrl, thumbnailUrl, title, regDate, views, channelId } =
+    video;
+  const [channelName, setChannelName] = useState('');
+  const [channelProfileImageUrl, setChannelProfileImageUrl] = useState('');
+  useEffect(() => {
+    const getChannelDetail = async () => {
+      const data = await axios({
+        method: 'GET',
+        url: `${BACKEND_URL}/channel/detail/${channelId}`,
+      });
+      setChannelName(data.data.channelName);
+      setChannelProfileImageUrl(data.data.channelProfileImageUrl);
+      console.log(data.data);
+    };
+    getChannelDetail();
+  });
 
   return (
     <div
@@ -45,11 +62,19 @@ const VideoItem = ({ video, from }) => {
           }}
         />
       </div>
-      <div className='flex flex-col mt-3 gap-2'>
-        <div>{title}</div>
-        <div className='flex'>
-          <div className='mr-3'>조회수 0회</div>
-          <div>{formatDate(regDate)}</div>
+      <div className='flex items-center'>
+        <div className='w-8 h-8 mr-4'>
+          <img src={channelProfileImageUrl} alt='profile' />
+        </div>
+        <div className='flex flex-col mt-3'>
+          <div>{title}</div>
+          <div className='flex flex-col'>
+            <div>{channelName}</div>
+            <div className='flex'>
+              <div className='mr-3'>조회수 {views}회</div>
+              <div>{formatDate(regDate)}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
