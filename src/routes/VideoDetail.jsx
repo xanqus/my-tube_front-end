@@ -15,6 +15,7 @@ import { BsList } from 'react-icons/bs';
 import Comment from '../components/videoDetail/Comment';
 import { useRecoilValue } from 'recoil';
 import { authenticatedState, channelState } from '../recoil';
+import ApiController from '../utils/ApiController';
 
 const VideoDetail = () => {
   const navigate = useNavigate();
@@ -31,13 +32,20 @@ const VideoDetail = () => {
   const sendText = async (e) => {
     e.preventDefault();
 
-    await axios({
-      url: `${BACKEND_URL}/comment/${videoId}/${channelInfo.id}`,
+    await ApiController({
+      url: `/comment/${videoId}/${channelInfo.id}`,
       method: 'POST',
       data: {
         text,
       },
     });
+    // await axios({
+    //   url: `${BACKEND_URL}/comment/${videoId}/${channelInfo.id}`,
+    //   method: 'POST',
+    //   data: {
+    //     text,
+    //   },
+    // });
     const latestComments = await axios({
       url: `${BACKEND_URL}/comment/${videoId}`,
       method: 'GET',

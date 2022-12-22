@@ -18,7 +18,6 @@ const VideoItem = ({ video }) => {
       });
       setChannelName(data.data.channelName);
       setChannelProfileImageUrl(data.data.channelProfileImageUrl);
-      console.log(data.data);
     };
     getChannelDetail();
   });
