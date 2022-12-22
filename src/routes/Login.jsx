@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { authenticatedState, channelState, userState } from "../recoil";
+import {
+  authenticatedState,
+  channelState,
+  subscribeChannelListState,
+  userState,
+} from "../recoil";
 import {
   GoogleLogin,
   googleLogout,
@@ -24,6 +29,7 @@ const Login = ({}) => {
   const setAuthenticated = useSetRecoilState(authenticatedState);
   const setUserInfo = useSetRecoilState(userState);
   const setChannelState = useSetRecoilState(channelState);
+  const setSubscribeChannelList = useSetRecoilState(subscribeChannelListState);
   const onChangeIdInput = (e) => {
     setEmail(e.target.value);
   };
@@ -50,16 +56,26 @@ const Login = ({}) => {
             "ascii"
           )
         );
-        console.log(payload);
-        console.log(payload.id);
+
         setUserInfo({ id: payload.id, username: payload.username });
         const getChannel = async () => {
           const data = await axios({
             url: `${BACKEND_URL}/channel/${payload.username}`,
             method: "GET",
           });
+
           // TODO: 로그인시 channelstate 마지막 사용한 채널로 변경
           setChannelState(data.data[0]);
+          const getSubscribeChannels = async () => {
+            const subscribeChannels = await axios({
+              method: "GET",
+              url: `${BACKEND_URL}/subscribe/${data.data[0].id}`,
+            });
+            setSubscribeChannelList(
+              (prev) => subscribeChannels.data.subscribedChannelIdList
+            );
+          };
+          getSubscribeChannels();
         };
 
         getChannel();

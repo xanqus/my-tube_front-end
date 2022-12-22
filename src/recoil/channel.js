@@ -26,3 +26,9 @@ export const currentlySelectedVideoState = atom({
   default: {},
   effects_UNSTABLE: [persistAtom],
 });
+
+export const subscribeChannelListState = atom({
+  key: "subscribeChannelListState",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});

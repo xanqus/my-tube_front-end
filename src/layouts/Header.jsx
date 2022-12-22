@@ -10,6 +10,7 @@ import {
   authenticatedState,
   channelState,
   modalActiveState,
+  subscribeChannelListState,
   userState,
   videoState,
 } from "../recoil";
@@ -20,6 +21,9 @@ const Header = ({ setDrawerHidden }) => {
   const resetUserInfo = useResetRecoilState(userState);
   const resetChannelInfo = useResetRecoilState(channelState);
   const resetVideoState = useResetRecoilState(videoState);
+  const resetSubscribeChannelListState = useResetRecoilState(
+    subscribeChannelListState
+  );
   const navigate = useNavigate();
   const setActive = useSetRecoilState(modalActiveState);
   const [searchword, setSearchword] = useState("");
@@ -114,6 +118,7 @@ const Header = ({ setDrawerHidden }) => {
                         resetVideoState();
                         resetUserInfo();
                         resetChannelInfo();
+                        resetSubscribeChannelListState();
                         navigate("/");
                       }}
                     >

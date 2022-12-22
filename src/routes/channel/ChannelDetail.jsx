@@ -16,11 +16,6 @@ const ChannelDetail = () => {
   const [channel, setChannel] = useState({});
   const params = useParams();
 
-  console.log(parseInt(channel?.id) !== parseInt(params.id));
-  // console.log("my id: ", typeof channelInfo.id);
-  // console.log("this channel id: ", typeof params.id);
-  // console.log(parseInt(channelInfo.id) === parseInt(params.id));
-
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
