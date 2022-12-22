@@ -16,12 +16,13 @@ import VideoItem from '../../components/channel/VideoItem';
 import { useParams } from 'react-router-dom';
 
 const ChannelDetail = () => {
+  const params = useParams();
   const currentChannel = useRecoilValue(channelState);
   const [subscribeChannelList, setSubscribeChannelList] = useRecoilState(
     subscribeChannelListState
   );
   const [channel, setChannel] = useState({});
-  const params = useParams();
+  const [countOfSubscribers, setCountOfSubscribers] = useState(0);
 
   const [videos, setVideos] = useState([]);
 
@@ -60,6 +61,17 @@ const ChannelDetail = () => {
     };
     getChannelByChannelId();
   }, [params.id]);
+  useEffect(() => {
+    const getCountOfSubscribers = async () => {
+      const count = await axios({
+        method: 'GET',
+        url: `${BACKEND_URL}/subscribe/count/${params.id}`,
+      });
+      setCountOfSubscribers(count.data);
+      console.log(count.data);
+    };
+    getCountOfSubscribers();
+  }, [params.id, subscribeChannelList]);
 
   return (
     <Layout>
@@ -74,7 +86,7 @@ const ChannelDetail = () => {
           </div>
           <div className='ml-6'>
             <div className='text-3xl'>{channel?.channelName}</div>
-            <div className='mt-3'>구독자 0명</div>
+            <div className='mt-3'>구독자 {countOfSubscribers}명</div>
           </div>
           <div className='mr-20 ml-auto'>
             <div>
