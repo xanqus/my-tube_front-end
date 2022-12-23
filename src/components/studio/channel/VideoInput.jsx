@@ -41,7 +41,6 @@ const VideoInput = () => {
     } catch (e) {
       setError(e);
       alert(e.message);
-      console.log(e);
     }
   };
   if (error) {

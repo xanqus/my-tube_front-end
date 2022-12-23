@@ -32,7 +32,6 @@ const Channel = () => {
           const data = await axios({
             url: `${BACKEND_URL}/video?channelId=${channelInfo.id}`,
           });
-          console.log(data);
           setVideos(data.data);
         }
       } catch (e) {}
@@ -47,14 +46,7 @@ const Channel = () => {
         </div>
         <div className="flex flex-col flex-grow z-0 border border-b-0">
           <ModalButton>
-            <div
-              onClick={() => {
-                console.log("active", active);
-                console.log("isEditing", isEditing);
-              }}
-            >
-              채널 콘텐츠
-            </div>
+            <div>채널 콘텐츠</div>
             <div
               className="flex justify-center items-center border w-auto ml-auto mr-4 text-md px-3 cursor-pointer"
               onClick={() => {

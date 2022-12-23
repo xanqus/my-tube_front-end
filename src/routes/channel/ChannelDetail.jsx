@@ -42,7 +42,6 @@ const ChannelDetail = () => {
       url: `${BACKEND_URL}/subscribe/${currentChannel.id}`,
     });
     setSubscribeChannelList(data.data.subscribedChannelIdList);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -72,7 +71,6 @@ const ChannelDetail = () => {
         url: `${BACKEND_URL}/subscribe/count/${params.id}`,
       });
       setCountOfSubscribers(count.data);
-      console.log(count.data);
     };
     getCountOfSubscribers();
   }, [params.id, subscribeChannelList]);
