@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { modalActiveState, videoState } from "../../../recoil";
-import { BACKEND_URL } from "../../../utils";
+import { ApiController, BACKEND_URL } from "../../../utils";
 
 const VideoInput = () => {
   const [error, setError] = useState(null);
@@ -19,12 +19,18 @@ const VideoInput = () => {
         formData.append("files", e.target.files[key])
       );
 
-      await axios({
+      ApiController({
         headers: { "Content-Type": "multipart/form-data" },
         url: `${BACKEND_URL}/video?channelId=${params.id}`,
         method: "POST",
         data: formData,
       });
+      // await axios({
+      //   headers: { "Content-Type": "multipart/form-data" },
+      //   url: `${BACKEND_URL}/video?channelId=${params.id}`,
+      //   method: "POST",
+      //   data: formData,
+      // });
       const data = await axios({
         url: `${BACKEND_URL}/video?channelId=${params.id}`,
         method: "GET",

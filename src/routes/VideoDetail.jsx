@@ -29,23 +29,24 @@ const VideoDetail = () => {
   const videoId = params.get("id");
   const [alreadyLikesVideo, setAlreadyLikesVideo] = useState(false);
 
-  const formData = new FormData();
+  // const formData = new FormData();
 
   const sendText = async (e) => {
     e.preventDefault();
 
-    formData.append("text", text);
+    // formData.append("text", text);
     await ApiController({
       url: `/comment/${videoId}/${channelInfo.id}`,
       method: "POST",
-      data: formData,
+      data: { text },
     });
     // await axios({
     //   url: `${BACKEND_URL}/comment/${videoId}/${channelInfo.id}`,
-    //   method: 'POST',
-    //   data: {
-    //     text,
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: localStorage.getItem("login-token"),
     //   },
+    //   data: { text },
     // });
     const latestComments = await axios({
       url: `${BACKEND_URL}/comment/${videoId}`,

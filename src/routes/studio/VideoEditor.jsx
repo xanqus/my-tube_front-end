@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "../../layouts/Layout";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { BACKEND_URL } from "../../utils";
+import { ApiController, BACKEND_URL } from "../../utils";
 import { useEffect } from "react";
 
 const VideoEditor = () => {
@@ -39,8 +39,8 @@ const VideoEditor = () => {
               <div
                 className="btn btn-sm bg-blue-500 text-white border-none hover:bg-blue-500 rounded-none mr-4"
                 onClick={async () => {
-                  await axios({
-                    url: `${BACKEND_URL}/video/${params.id}`,
+                  await ApiController({
+                    url: `/video/${params.id}`,
                     method: "PATCH",
                     data: {
                       title,
@@ -48,6 +48,15 @@ const VideoEditor = () => {
                       isPublic,
                     },
                   });
+                  // await axios({
+                  //   url: `${BACKEND_URL}/video/${params.id}`,
+                  //   method: "PATCH",
+                  //   data: {
+                  //     title,
+                  //     description,
+                  //     isPublic,
+                  //   },
+                  // });
                 }}
               >
                 저장

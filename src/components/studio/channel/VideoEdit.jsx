@@ -10,7 +10,7 @@ import {
   videoState,
 } from "../../../recoil";
 import VideoEditStep from "./videoEdit/VideoEditStep";
-import { BACKEND_URL } from "../../../utils";
+import { ApiController, BACKEND_URL } from "../../../utils";
 import { Link } from "react-router-dom";
 
 const VideoEdit = () => {
@@ -41,11 +41,16 @@ const VideoEdit = () => {
               setActive(false);
               setIsEditing(false);
               setSelectedVideo(null);
-              await axios({
-                url: `${BACKEND_URL}/video/${selectedVideo.videoId}`,
+              await ApiController({
+                url: `/video/${selectedVideo.videoId}`,
                 method: "PATCH",
                 data: { title, description },
               });
+              // await axios({
+              //   url: `${BACKEND_URL}/video/${selectedVideo.videoId}`,
+              //   method: "PATCH",
+              //   data: { title, description },
+              // });
               const data = await axios({
                 url: `${BACKEND_URL}/video?channelId=${channelInfo.id}`,
               });
@@ -197,11 +202,16 @@ const VideoEdit = () => {
                     setActive(false);
                     setIsEditing(false);
                     setSelectedVideo(null);
-                    await axios({
-                      url: `${BACKEND_URL}/video/${selectedVideo.videoId}`,
+                    await ApiController({
+                      url: `/video/${selectedVideo.videoId}`,
                       method: "PATCH",
                       data: { title, description, isPublic, isTemp: false },
                     });
+                    // await axios({
+                    //   url: `${BACKEND_URL}/video/${selectedVideo.videoId}`,
+                    //   method: "PATCH",
+                    //   data: { title, description, isPublic, isTemp: false },
+                    // });
                     const data = await axios({
                       url: `${BACKEND_URL}/video?channelId=${channelInfo.id}`,
                     });

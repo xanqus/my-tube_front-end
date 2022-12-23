@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import ApiController from "../utils/ApiController";
+import { ApiController } from "../utils";
 
 const JwtAuthenticatedUser = () => {
   // useEffect(() => {
   //   const getUsers = async () => {
-  //     const data = await ApiController({ url: "/api/v1/user", method: "GET" });
+  //     const data = await ApiController({ url: "/user", method: "GET" });
   //     console.log(data);
   //   };
   //   getUsers();
